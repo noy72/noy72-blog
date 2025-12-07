@@ -10,7 +10,8 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "quality-check": "pnpm run format:check && pnpm run lint && pnpm run check && pnpm run build"
   },
   "dependencies": {
     "astro": "^5.16.4"
