@@ -39,9 +39,20 @@ function extractDateFromId(id: string): Date | null {
     return null;
   }
 
-  return new Date(
-    parseInt(match[1]),
-    parseInt(match[2]) - 1, // JavaScriptのDateコンストラクタは月を0始まりで扱うため、-1が必要
-    parseInt(match[3]),
-  );
+  const year = parseInt(match[1]);
+  const month = parseInt(match[2]);
+  const day = parseInt(match[3]);
+  const date = new Date(year, month - 1, day);
+
+  // Dateが期待した値と一致するかチェック（不正な日付を弾く）
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    console.warn(`不正な日付です: ${year}-${month}-${day} in "${id}"\n`);
+    return null;
+  }
+
+  return date;
 }
