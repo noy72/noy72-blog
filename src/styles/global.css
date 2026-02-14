@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+.blog-title {
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.05em;
+}
+
 /* Markdown content styling */
 .prose {
   --tw-prose-body: theme("colors.gray.700");
