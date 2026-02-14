@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
 
 export async function getStaticPaths() {
@@ -41,41 +42,17 @@ const { articles } = Astro.props;
         { label: tag, href: `/tags/${tag}` },
       ]}
     />
-    <h1 class="page-title">タグ: {tag}</h1>
-    <div class="article-list">
+    <h1 class="text-3xl font-bold mb-12 text-gray-900">タグ: {tag}</h1>
+    <div class="flex flex-col gap-12">
       {
         articles.map((article) => (
-          <article class="relative">
-            <h2 class="article-title">
-              <a href={`/articles/${article.id}`} class="link-primary">
-                {article.data.title}
-              </a>
-            </h2>
-            <time
-              datetime={article.publishDate.toISOString()}
-              class="meta-date"
-            >
-              {article.publishDate.toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
-            {article.data.description && (
-              <p class="article-description">{article.data.description}</p>
-            )}
-            {article.data.tags && article.data.tags.length > 0 && (
-              <ul class="tag-list mt-3">
-                {article.data.tags.map((articleTag) => (
-                  <li class="tag-list-item">
-                    <a href={`/tags/${articleTag}`} class="link-tag">
-                      #{articleTag}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </article>
+          <ArticleCard
+            id={article.id}
+            title={article.data.title}
+            publishDate={article.publishDate}
+            description={article.data.description}
+            tags={article.data.tags}
+          />
         ))
       }
     </div>

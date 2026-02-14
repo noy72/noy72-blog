@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
+import TagList from "../../components/TagList.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
 
 export async function getStaticPaths() {
@@ -28,12 +29,12 @@ const { Content } = await render(article);
       ]}
     />
     <header class="mb-8">
-      <h1 class="article-header-title">
+      <h1 class="text-3xl font-bold mb-3 text-gray-900">
         {article.data.title}
       </h1>
       <time
         datetime={article.publishDate.toISOString()}
-        class="meta-date-header"
+        class="block text-sm text-gray-500 mb-4"
       >
         {
           article.publishDate.toLocaleDateString("ja-JP", {
@@ -45,15 +46,7 @@ const { Content } = await render(article);
       </time>
       {
         article.data.tags && article.data.tags.length > 0 && (
-          <ul class="tag-list">
-            {article.data.tags.map((tag) => (
-              <li class="tag-list-item">
-                <a href={`/tags/${tag}`} class="link-tag">
-                  #{tag}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <TagList tags={article.data.tags} />
         )
       }
     </header>
