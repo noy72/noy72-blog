@@ -11,9 +11,8 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' https://i.imgur.com https://placehold.co",
         "font-src 'self' https://fonts.gstatic.com",
-        "connect-src 'self'",
+        "object-src 'none'",
         "base-uri 'self'",
-        "form-action 'self'",
         "upgrade-insecure-requests",
       ],
       styleDirective: {
