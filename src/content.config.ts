@@ -12,4 +12,9 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { articles };
+const about = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/data/about" }),
+  schema: z.object({}),
+});
+
+export const collections = { articles, about };

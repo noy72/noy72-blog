@@ -1,6 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
+import { getCollection, render } from "astro:content";
+
+const aboutEntries = await getCollection("about");
+const aboutEntry = aboutEntries[0];
+const { Content } = await render(aboutEntry);
 ---
 
 <Layout>
@@ -13,9 +18,7 @@ import Breadcrumb from "../components/Breadcrumb.astro";
     />
     <h1 class="text-3xl font-bold mb-8 text-gray-900">About</h1>
     <div class="prose prose-slate max-w-none">
-      <p class="text-gray-600 leading-relaxed">
-        このブログについての説明が入ります。
-      </p>
+      <Content />
     </div>
   </article>
 </Layout>
