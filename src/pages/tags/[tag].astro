@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
 
 export async function getStaticPaths() {
@@ -33,6 +34,13 @@ const { articles } = Astro.props;
 
 <Layout>
   <main class="container-main">
+    <Breadcrumb
+      items={[
+        { label: "ホーム", href: "/" },
+        { label: "タグ一覧", href: "/tags" },
+        { label: tag, href: `/tags/${tag}` },
+      ]}
+    />
     <h1 class="page-title">タグ: {tag}</h1>
     <div class="article-list">
       {

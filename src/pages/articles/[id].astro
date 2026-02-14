@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
 
 export async function getStaticPaths() {
@@ -20,6 +21,12 @@ const { Content } = await render(article);
 
 <Layout>
   <article class="container-main">
+    <Breadcrumb
+      items={[
+        { label: "ホーム", href: "/" },
+        { label: article.data.title, href: `/articles/${article.id}` },
+      ]}
+    />
     <header class="mb-8">
       <h1 class="article-header-title">
         {article.data.title}
