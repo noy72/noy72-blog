@@ -2,6 +2,7 @@
 title: "最初の記事"
 description: "Astro で作成した最初のブログ記事です"
 tags: ["astro", "blog"]
+thumbnail: "https://placehold.co/400x300/3b82f6/ffffff?text=First+Post"
 ---
 
 # はじめに
