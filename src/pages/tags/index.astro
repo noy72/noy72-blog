@@ -6,7 +6,9 @@ const articles = await getCollection("articles", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const tags = [...new Set(articles.flatMap((a) => a.data.tags || []))].toSorted();
+const tags = [
+  ...new Set(articles.flatMap((a) => a.data.tags || [])),
+].toSorted();
 ---
 
 <Layout>
