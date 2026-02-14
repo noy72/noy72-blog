@@ -1,9 +1,9 @@
 ---
 name: デフォルト
 about: タスクや改善の提案
-title: ''
-labels: ''
-assignees: ''
+title: ""
+labels: ""
+assignees: ""
 ---
 
 ## 背景
