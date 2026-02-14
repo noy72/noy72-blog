@@ -8,6 +8,7 @@ const articles = defineCollection({
     description: z.string().optional(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().default(false),
+    thumbnail: z.string().url().optional(),
   }),
 });
 
