@@ -13,17 +13,17 @@ interface Props {
 const { id, title, publishDate, description, tags, thumbnail } = Astro.props;
 ---
 
-<article class="relative flex gap-4 items-center">
+<article
+  class="relative flex gap-4 items-center p-4 -m-4 rounded-lg transition-colors hover:bg-gray-50"
+>
   <div class="shrink-0 w-24">
     {
       thumbnail ? (
-        <a href={`/articles/${id}`}>
-          <img
-            src={thumbnail}
-            alt={`${title}のサムネイル画像`}
-            class="w-24 h-24 object-cover rounded-lg"
-          />
-        </a>
+        <img
+          src={thumbnail}
+          alt={`${title}のサムネイル画像`}
+          class="w-24 h-24 object-cover rounded-lg"
+        />
       ) : (
         <div class="w-24 h-24" aria-hidden="true" />
       )
@@ -33,7 +33,7 @@ const { id, title, publishDate, description, tags, thumbnail } = Astro.props;
     <h2 class="mb-2 text-xl font-semibold">
       <a
         href={`/articles/${id}`}
-        class="text-gray-900 hover:text-blue-500 transition-colors"
+        class="article-card-link text-gray-900 hover:text-blue-500 transition-colors"
       >
         {title}
       </a>
@@ -58,3 +58,12 @@ const { id, title, publishDate, description, tags, thumbnail } = Astro.props;
     {tags && tags.length > 0 && <TagList tags={tags} class="mt-3" />}
   </div>
 </article>
+
+<style>
+  .article-card-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+</style>
