@@ -7,36 +7,54 @@ interface Props {
   publishDate: Date;
   description?: string;
   tags?: string[];
+  thumbnail?: string;
 }
 
-const { id, title, publishDate, description, tags } = Astro.props;
+const { id, title, publishDate, description, tags, thumbnail } = Astro.props;
 ---
 
-<article class="relative">
-  <h2 class="mb-2 text-xl font-semibold">
-    <a
-      href={`/articles/${id}`}
-      class="text-gray-900 hover:text-blue-500 transition-colors"
-    >
-      {title}
-    </a>
-  </h2>
-  <time
-    datetime={publishDate.toISOString()}
-    class="block text-sm text-gray-500 mb-3"
-  >
+<article class="relative flex gap-4 items-center">
+  <div class="shrink-0 w-24">
     {
-      publishDate.toLocaleDateString("ja-JP", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+      thumbnail ? (
+        <a href={`/articles/${id}`}>
+          <img
+            src={thumbnail}
+            alt={`${title}のサムネイル画像`}
+            class="w-24 h-24 object-cover rounded-lg"
+          />
+        </a>
+      ) : (
+        <div class="w-24 h-24" aria-hidden="true" />
+      )
     }
-  </time>
-  {
-    description && (
-      <p class="text-gray-600 leading-relaxed mb-0">{description}</p>
-    )
-  }
-  {tags && tags.length > 0 && <TagList tags={tags} class="mt-3" />}
+  </div>
+  <div class="flex-1 min-w-0">
+    <h2 class="mb-2 text-xl font-semibold">
+      <a
+        href={`/articles/${id}`}
+        class="text-gray-900 hover:text-blue-500 transition-colors"
+      >
+        {title}
+      </a>
+    </h2>
+    <time
+      datetime={publishDate.toISOString()}
+      class="block text-sm text-gray-500 mb-3"
+    >
+      {
+        publishDate.toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }
+    </time>
+    {
+      description && (
+        <p class="text-gray-600 leading-relaxed mb-0">{description}</p>
+      )
+    }
+    {tags && tags.length > 0 && <TagList tags={tags} class="mt-3" />}
+  </div>
 </article>
