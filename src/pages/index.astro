@@ -1,11 +1,56 @@
 ---
-import Welcome from "../components/Welcome.astro";
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import { addPublishDateToArticles } from "../lib/article.ts";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const articles = await getCollection("articles", ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+const sortedArticles = addPublishDateToArticles(articles).toSorted(
+  (a, b) => b.publishDate.getTime() - a.publishDate.getTime(),
+);
 ---
 
 <Layout>
-  <Welcome />
+  <main class="max-w-screen-md mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold mb-12 text-gray-900">記事一覧</h1>
+    <div class="flex flex-col gap-12">
+      {
+        sortedArticles.map((article) => (
+          <article class="relative">
+            <h2 class="mb-2 text-xl font-semibold">
+              <a
+                href={`/articles/${article.id}`}
+                class="text-gray-900 hover:text-blue-500 transition-colors"
+              >
+                {article.data.title}
+              </a>
+            </h2>
+            <time
+              datetime={article.publishDate.toISOString()}
+              class="block text-sm text-gray-500 mb-3"
+            >
+              {article.publishDate.toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            {article.data.description && (
+              <p class="text-gray-600 leading-relaxed mb-0">
+                {article.data.description}
+              </p>
+            )}
+            {article.data.tags && article.data.tags.length > 0 && (
+              <ul class="flex gap-2 flex-wrap mt-3 list-none p-0">
+                {article.data.tags.map((tag) => (
+                  <li class="text-sm text-gray-500">#{tag}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </main>
 </Layout>
