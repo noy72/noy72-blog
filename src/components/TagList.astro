@@ -1,0 +1,23 @@
+---
+interface Props {
+  tags: string[];
+  class?: string;
+}
+
+const { tags, class: className } = Astro.props;
+---
+
+<ul class:list={["flex gap-2 flex-wrap list-none p-0", className]}>
+  {
+    tags.map((tag) => (
+      <li class="text-sm">
+        <a
+          href={`/tags/${tag}`}
+          class="text-gray-500 hover:text-blue-500 transition-colors"
+        >
+          #{tag}
+        </a>
+      </li>
+    ))
+  }
+</ul>
