@@ -1,0 +1,68 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="mb-6" aria-label="パンくずリスト">
+  <ol class="flex items-center gap-2 text-sm">
+    <li class="-mr-1">
+      <svg
+        class="w-4 h-4 text-gray-600 -translate-y-0.5"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+        ></path>
+      </svg>
+    </li>
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return (
+          <li class="flex items-center gap-2 text-gray-600">
+            {isLast ? (
+              <span class="text-gray-900 font-medium" aria-current="page">
+                {item.label}
+              </span>
+            ) : (
+              <>
+                <a
+                  href={item.href}
+                  class="text-gray-600 hover:text-blue-500 transition-colors"
+                >
+                  {item.label}
+                </a>
+                <svg
+                  class="w-3 h-3 text-gray-400"
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L5 5L1 9"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
