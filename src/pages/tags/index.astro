@@ -12,8 +12,8 @@ const tags = [
 ---
 
 <Layout>
-  <main class="max-w-screen-md mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-8 text-gray-900">タグ一覧</h1>
+  <main class="container-main">
+    <h1 class="page-title-compact">タグ一覧</h1>
     <ul class="flex flex-col gap-4 list-none p-0">
       {
         tags.map((tag) => {
@@ -24,7 +24,7 @@ const tags = [
             <li>
               <a
                 href={`/tags/${tag}`}
-                class="flex items-center gap-2 text-lg text-gray-900 hover:text-blue-500 transition-colors"
+                class="flex items-center gap-2 text-lg link-primary"
               >
                 <span class="font-medium">#{tag}</span>
                 <span class="text-sm text-gray-500">({count})</span>

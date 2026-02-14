@@ -19,14 +19,14 @@ const { Content } = await render(article);
 ---
 
 <Layout>
-  <article class="max-w-screen-md mx-auto px-6 py-12">
+  <article class="container-main">
     <header class="mb-8">
-      <h1 class="text-3xl font-bold mb-3 text-gray-900">
+      <h1 class="article-header-title">
         {article.data.title}
       </h1>
       <time
         datetime={article.publishDate.toISOString()}
-        class="block text-sm text-gray-500 mb-4"
+        class="meta-date-header"
       >
         {
           article.publishDate.toLocaleDateString("ja-JP", {
@@ -38,13 +38,10 @@ const { Content } = await render(article);
       </time>
       {
         article.data.tags && article.data.tags.length > 0 && (
-          <ul class="flex gap-2 flex-wrap list-none p-0">
+          <ul class="tag-list">
             {article.data.tags.map((tag) => (
-              <li class="text-sm">
-                <a
-                  href={`/tags/${tag}`}
-                  class="text-gray-500 hover:text-blue-500 transition-colors"
-                >
+              <li class="tag-list-item">
+                <a href={`/tags/${tag}`} class="link-tag">
                   #{tag}
                 </a>
               </li>
