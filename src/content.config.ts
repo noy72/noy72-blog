@@ -14,7 +14,9 @@ const articles = defineCollection({
 
 const about = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/data/about" }),
-  schema: z.object({}),
+  schema: z.object({
+    description: z.string().optional(),
+  }),
 });
 
 export const collections = { articles, about };
