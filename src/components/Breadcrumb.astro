@@ -1,16 +1,19 @@
 ---
-interface BreadcrumbItem {
-  label: string;
-  href: string;
-}
+import { buildBreadcrumbSchema, type BreadcrumbItem } from "../lib/seo";
 
 interface Props {
   items: BreadcrumbItem[];
 }
 
 const { items } = Astro.props;
+const breadcrumbSchema = buildBreadcrumbSchema(items);
 ---
 
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(breadcrumbSchema)}
+/>
 <nav class="mb-6" aria-label="パンくずリスト">
   <ol class="flex items-center gap-2 text-sm">
     <li class="-mr-1">
