@@ -32,6 +32,7 @@ const image = article.data.thumbnail || SITE_CONFIG.defaultImage;
   description={description}
   image={image}
   isArticle={true}
+  publishedTime={article.publishDate.toISOString()}
 >
   <article class="container-main">
     <Breadcrumb
