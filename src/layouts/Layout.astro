@@ -1,6 +1,28 @@
 ---
 import Header from "../components/Header.astro";
+import { SITE_CONFIG } from "../config/site";
+import { buildCanonicalUrl, buildAbsoluteImageUrl } from "../lib/seo";
 import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  isArticle?: boolean;
+  noIndex?: boolean;
+}
+
+const {
+  title = SITE_CONFIG.siteName,
+  description = SITE_CONFIG.description,
+  image = SITE_CONFIG.defaultImage,
+  isArticle = false,
+  noIndex = false,
+} = Astro.props;
+
+const canonicalUrl = buildCanonicalUrl(Astro.url.pathname);
+const absoluteImageUrl = buildAbsoluteImageUrl(image);
+const ogType = isArticle ? "article" : "website";
 ---
 
 <!doctype html>
@@ -16,7 +38,20 @@ import "../styles/global.css";
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:site_name" content={SITE_CONFIG.siteName} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={absoluteImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={absoluteImageUrl} />
   </head>
   <body>
     <Header />
