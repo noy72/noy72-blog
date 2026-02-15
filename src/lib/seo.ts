@@ -1,0 +1,27 @@
+import { SITE_CONFIG } from "../config/site";
+
+export function buildCanonicalUrl(pathname: string): string {
+  const cleanPath =
+    pathname.endsWith("/") && pathname !== "/"
+      ? pathname.slice(0, -1)
+      : pathname;
+  return `${SITE_CONFIG.baseUrl}${cleanPath}`;
+}
+
+export function buildAbsoluteImageUrl(imagePath: string): string {
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath;
+  }
+  return `${SITE_CONFIG.baseUrl}${imagePath}`;
+}
+
+export function extractDescriptionFromMarkdown(content: string): string {
+  const maxLength = 150;
+  const trimmed = content.trim();
+
+  if (trimmed.length <= maxLength) {
+    return trimmed;
+  }
+
+  return trimmed.slice(0, maxLength) + "...";
+}
