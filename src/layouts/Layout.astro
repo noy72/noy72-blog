@@ -1,7 +1,11 @@
 ---
 import Header from "../components/Header.astro";
 import { SITE_CONFIG } from "../config/site";
-import { buildCanonicalUrl, buildAbsoluteImageUrl } from "../lib/seo";
+import {
+  buildCanonicalUrl,
+  buildAbsoluteImageUrl,
+  type BlogPostingSchema,
+} from "../lib/seo";
 import "../styles/global.css";
 
 interface Props {
@@ -11,6 +15,7 @@ interface Props {
   isArticle?: boolean;
   noIndex?: boolean;
   publishedTime?: string;
+  jsonLd?: BlogPostingSchema;
 }
 
 const {
@@ -20,6 +25,7 @@ const {
   isArticle = false,
   noIndex = false,
   publishedTime,
+  jsonLd,
 } = Astro.props;
 
 const canonicalUrl = buildCanonicalUrl(Astro.url.pathname);
@@ -59,6 +65,15 @@ const ogType = isArticle ? "article" : "website";
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={absoluteImageUrl} />
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
   </head>
   <body>
     <Header />

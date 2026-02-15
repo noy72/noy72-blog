@@ -5,7 +5,11 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import TagList from "../../components/TagList.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
 import { SITE_CONFIG } from "../../config/site";
-import { extractDescriptionFromMarkdown } from "../../lib/seo";
+import {
+  extractDescriptionFromMarkdown,
+  buildAbsoluteImageUrl,
+  type BlogPostingSchema,
+} from "../../lib/seo";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => {
@@ -25,6 +29,18 @@ const description =
   article.data.description ||
   extractDescriptionFromMarkdown(article.body || "");
 const image = article.data.thumbnail || SITE_CONFIG.defaultImage;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: article.data.title,
+  image: buildAbsoluteImageUrl(image),
+  datePublished: article.publishDate.toISOString(),
+  author: {
+    "@type": "Person",
+    name: SITE_CONFIG.author,
+  },
+  description,
+} satisfies BlogPostingSchema;
 ---
 
 <Layout
@@ -33,6 +49,7 @@ const image = article.data.thumbnail || SITE_CONFIG.defaultImage;
   image={image}
   isArticle={true}
   publishedTime={article.publishDate.toISOString()}
+  jsonLd={jsonLd}
 >
   <article class="container-main">
     <Breadcrumb

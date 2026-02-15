@@ -1,5 +1,18 @@
 import { SITE_CONFIG } from "../config/site";
 
+export type BlogPostingSchema = {
+  "@context": "https://schema.org";
+  "@type": "BlogPosting";
+  headline: string;
+  image: string;
+  datePublished: string;
+  author: {
+    "@type": "Person";
+    name: typeof SITE_CONFIG.author;
+  };
+  description?: string;
+};
+
 export function buildCanonicalUrl(pathname: string): string {
   const cleanPath =
     pathname.endsWith("/") && pathname !== "/"
