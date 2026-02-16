@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /tags/
+
+Sitemap: https://noy72.com/sitemap-index.xml
