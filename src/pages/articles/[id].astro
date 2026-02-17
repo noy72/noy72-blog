@@ -36,7 +36,7 @@ const description =
   article.data.description ||
   extractDescriptionFromMarkdown(article.body || "");
 const image = article.data.thumbnail || SITE_CONFIG.defaultImage;
-const jsonLd = {
+const jsonLd: BlogPostingSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: article.data.title,
@@ -47,7 +47,7 @@ const jsonLd = {
     name: SITE_CONFIG.author,
   },
   description,
-} satisfies BlogPostingSchema;
+};
 ---
 
 <Layout
