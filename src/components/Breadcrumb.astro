@@ -17,25 +17,21 @@ type BreadcrumbListSchema = {
   }[];
 };
 
-function buildBreadcrumbSchema(items: BreadcrumbItem[]): BreadcrumbListSchema {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.label,
-      item: buildCanonicalUrl(item.href),
-    })),
-  };
-}
-
 interface Props {
   items: BreadcrumbItem[];
 }
 
 const { items } = Astro.props;
-const breadcrumbSchema = buildBreadcrumbSchema(items);
+const breadcrumbSchema: BreadcrumbListSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    item: buildCanonicalUrl(item.href),
+  })),
+};
 ---
 
 <script
