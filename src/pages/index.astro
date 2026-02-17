@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import { addPublishDateToArticles } from "../lib/article.ts";
+import { SITE_CONFIG } from "../config/site";
 
 const articles = await getCollection("articles", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
@@ -13,7 +14,7 @@ const sortedArticles = addPublishDateToArticles(articles).toSorted(
 );
 ---
 
-<Layout>
+<Layout title="記事一覧" description={SITE_CONFIG.description}>
   <main class="container-main">
     <Breadcrumb items={[{ label: "ホーム", href: "/" }]} />
     <h1 class="text-3xl font-bold mb-12 text-gray-900">記事一覧</h1>

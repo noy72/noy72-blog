@@ -1,16 +1,44 @@
 ---
-interface BreadcrumbItem {
+import { buildCanonicalUrl } from "../lib/seo";
+
+type BreadcrumbItem = {
   label: string;
   href: string;
-}
+};
+
+type BreadcrumbListSchema = {
+  "@context": "https://schema.org";
+  "@type": "BreadcrumbList";
+  itemListElement: {
+    "@type": "ListItem";
+    position: number;
+    name: string;
+    item: string;
+  }[];
+};
 
 interface Props {
   items: BreadcrumbItem[];
 }
 
 const { items } = Astro.props;
+const breadcrumbSchema: BreadcrumbListSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    item: buildCanonicalUrl(item.href),
+  })),
+};
 ---
 
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(breadcrumbSchema)}
+/>
 <nav class="mb-6" aria-label="パンくずリスト">
   <ol class="flex items-center gap-2 text-sm">
     <li class="-mr-1">

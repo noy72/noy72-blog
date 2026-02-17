@@ -1,6 +1,39 @@
 ---
 import Header from "../components/Header.astro";
+import { SITE_CONFIG } from "../config/site";
+import {
+  buildCanonicalUrl,
+  buildAbsoluteImageUrl,
+  type BlogPostingSchema,
+} from "../lib/seo";
 import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  isArticle?: boolean;
+  noIndex?: boolean;
+  publishedTime?: string;
+  jsonLd?: BlogPostingSchema;
+}
+
+const {
+  title,
+  description = SITE_CONFIG.description,
+  image = SITE_CONFIG.defaultImage,
+  isArticle = false,
+  noIndex = false,
+  publishedTime,
+  jsonLd,
+} = Astro.props;
+
+const fullTitle = title
+  ? `${title} | ${SITE_CONFIG.siteName}`
+  : SITE_CONFIG.siteName;
+const canonicalUrl = buildCanonicalUrl(Astro.url.pathname);
+const absoluteImageUrl = buildAbsoluteImageUrl(image);
+const ogType = isArticle ? "article" : "website";
 ---
 
 <!doctype html>
@@ -16,7 +49,34 @@ import "../styles/global.css";
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:site_name" content={SITE_CONFIG.siteName} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={absoluteImageUrl} />
+    {
+      isArticle && publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={absoluteImageUrl} />
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
   </head>
   <body>
     <Header />

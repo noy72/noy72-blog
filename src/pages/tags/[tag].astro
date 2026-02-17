@@ -33,7 +33,11 @@ const { tag } = Astro.params;
 const { articles } = Astro.props;
 ---
 
-<Layout>
+<Layout
+  title={`タグ: ${tag}`}
+  description={`"${tag}" タグの記事一覧`}
+  noIndex={true}
+>
   <main class="container-main">
     <Breadcrumb
       items={[
