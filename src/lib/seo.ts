@@ -13,22 +13,6 @@ export type BlogPostingSchema = {
   description?: string;
 };
 
-export type BreadcrumbItem = {
-  label: string;
-  href: string;
-};
-
-export type BreadcrumbListSchema = {
-  "@context": "https://schema.org";
-  "@type": "BreadcrumbList";
-  itemListElement: {
-    "@type": "ListItem";
-    position: number;
-    name: string;
-    item: string;
-  }[];
-};
-
 export function buildCanonicalUrl(pathname: string): string {
   const cleanPath =
     pathname.endsWith("/") && pathname !== "/"
@@ -42,30 +26,4 @@ export function buildAbsoluteImageUrl(imagePath: string): string {
     return imagePath;
   }
   return `${SITE_CONFIG.baseUrl}${imagePath}`;
-}
-
-export function extractDescriptionFromMarkdown(content: string): string {
-  const maxLength = 150;
-  const trimmed = content.trim();
-
-  if (trimmed.length <= maxLength) {
-    return trimmed;
-  }
-
-  return trimmed.slice(0, maxLength) + "...";
-}
-
-export function buildBreadcrumbSchema(
-  items: BreadcrumbItem[],
-): BreadcrumbListSchema {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.label,
-      item: buildCanonicalUrl(item.href),
-    })),
-  };
 }

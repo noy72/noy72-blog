@@ -1,5 +1,34 @@
 ---
-import { buildBreadcrumbSchema, type BreadcrumbItem } from "../lib/seo";
+import { buildCanonicalUrl } from "../lib/seo";
+
+type BreadcrumbItem = {
+  label: string;
+  href: string;
+};
+
+type BreadcrumbListSchema = {
+  "@context": "https://schema.org";
+  "@type": "BreadcrumbList";
+  itemListElement: {
+    "@type": "ListItem";
+    position: number;
+    name: string;
+    item: string;
+  }[];
+};
+
+function buildBreadcrumbSchema(items: BreadcrumbItem[]): BreadcrumbListSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: buildCanonicalUrl(item.href),
+    })),
+  };
+}
 
 interface Props {
   items: BreadcrumbItem[];
