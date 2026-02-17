@@ -2,9 +2,7 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { addPublishDateToArticles } from "../lib/article";
 import { SITE_CONFIG } from "../config/site";
-import type { APIContext } from "astro";
-
-export async function GET(context: APIContext) {
+export async function GET() {
   const articles = await getCollection("articles");
   const articlesWithDate = addPublishDateToArticles(articles);
 
