@@ -7,11 +7,9 @@ import { SITE_CONFIG } from "../config/site";
 const aboutEntries = await getCollection("about");
 const aboutEntry = aboutEntries[0];
 const { Content } = await render(aboutEntry);
-
-const description = aboutEntry.data.description || SITE_CONFIG.description;
 ---
 
-<Layout title={`About | ${SITE_CONFIG.siteName}`} description={description}>
+<Layout title={`About | ${SITE_CONFIG.siteName}`}>
   <article class="max-w-screen-md mx-auto px-6 py-12">
     <Breadcrumb
       items={[
