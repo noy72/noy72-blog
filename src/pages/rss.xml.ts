@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { addPublishDateToArticles } from "../lib/article";
+import { SITE_CONFIG } from "../config/site";
 import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
@@ -12,9 +13,9 @@ export async function GET(context: APIContext) {
     .sort((a, b) => b.publishDate.getTime() - a.publishDate.getTime());
 
   return rss({
-    title: "noy72.com",
-    description: "TODO",
-    site: context.site?.toString() || "https://noy72.com",
+    title: SITE_CONFIG.siteName,
+    description: SITE_CONFIG.description,
+    site: SITE_CONFIG.baseUrl,
     items: publishedArticles.map((article) => ({
       title: article.data.title,
       description: article.data.description || "",
