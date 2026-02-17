@@ -19,7 +19,7 @@ interface Props {
 }
 
 const {
-  title = SITE_CONFIG.siteName,
+  title,
   description = SITE_CONFIG.description,
   image = SITE_CONFIG.defaultImage,
   isArticle = false,
@@ -28,6 +28,9 @@ const {
   jsonLd,
 } = Astro.props;
 
+const fullTitle = title
+  ? `${title} | ${SITE_CONFIG.siteName}`
+  : SITE_CONFIG.siteName;
 const canonicalUrl = buildCanonicalUrl(Astro.url.pathname);
 const absoluteImageUrl = buildAbsoluteImageUrl(image);
 const ogType = isArticle ? "article" : "website";
@@ -46,14 +49,14 @@ const ogType = isArticle ? "article" : "website";
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     {noIndex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:site_name" content={SITE_CONFIG.siteName} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={fullTitle} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={absoluteImageUrl} />
     {
@@ -62,7 +65,7 @@ const ogType = isArticle ? "article" : "website";
       )
     }
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={fullTitle} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={absoluteImageUrl} />
     {

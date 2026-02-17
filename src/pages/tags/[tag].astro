@@ -4,7 +4,6 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import { addPublishDateToArticles } from "../../lib/article.ts";
-import { SITE_CONFIG } from "../../config/site";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => {
@@ -35,7 +34,7 @@ const { articles } = Astro.props;
 ---
 
 <Layout
-  title={`タグ: ${tag} | ${SITE_CONFIG.siteName}`}
+  title={`タグ: ${tag}`}
   description={`"${tag}" タグの記事一覧`}
   noIndex={true}
 >

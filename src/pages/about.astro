@@ -2,14 +2,13 @@
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import { getCollection, render } from "astro:content";
-import { SITE_CONFIG } from "../config/site";
 
 const aboutEntries = await getCollection("about");
 const aboutEntry = aboutEntries[0];
 const { Content } = await render(aboutEntry);
 ---
 
-<Layout title={`About | ${SITE_CONFIG.siteName}`}>
+<Layout title="About">
   <article class="max-w-screen-md mx-auto px-6 py-12">
     <Breadcrumb
       items={[

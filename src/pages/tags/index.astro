@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
-import { SITE_CONFIG } from "../../config/site";
 
 const articles = await getCollection("articles", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
@@ -13,11 +12,7 @@ const tags = [
 ].toSorted();
 ---
 
-<Layout
-  title={`タグ一覧 | ${SITE_CONFIG.siteName}`}
-  description="すべてのタグ一覧"
-  noIndex={true}
->
+<Layout title="タグ一覧" description="すべてのタグ一覧" noIndex={true}>
   <main class="container-main">
     <Breadcrumb
       items={[
