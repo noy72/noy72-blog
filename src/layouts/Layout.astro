@@ -78,6 +78,7 @@ const isProduction = import.meta.env.PROD;
         />
       )
     }
+    <!-- set:htmlを使用: define:varsではPrettierがargumentsをパースできないため -->
     {
       isProduction && (
         <>
@@ -88,17 +89,13 @@ const isProduction = import.meta.env.PROD;
           />
           <script
             is:inline
-            define:vars={{ gaMeasurementId: SITE_CONFIG.gaMeasurementId }}
-          >
-            /* eslint-disable prefer-rest-params */
+            set:html={`
             window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", gaMeasurementId);
-            /* eslint-enable prefer-rest-params */
-          </script>
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${SITE_CONFIG.gaMeasurementId}');
+          `}
+          />
         </>
       )
     }
