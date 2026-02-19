@@ -17,7 +17,7 @@ const sortedArticles = addPublishDateToArticles(articles).toSorted(
 <Layout title="記事一覧" description={SITE_CONFIG.description}>
   <main class="container-main">
     <Breadcrumb items={[{ label: "ホーム", href: "/" }]} />
-    <h1 class="text-3xl font-bold mb-12 text-gray-900">記事一覧</h1>
+    <h1 class="text-3xl font-semibold mb-12 text-gray-900">記事一覧</h1>
     <div class="flex flex-col gap-12">
       {
         sortedArticles.map((article) => (
