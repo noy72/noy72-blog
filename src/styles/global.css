@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+body {
+  font-family: "M PLUS 2", sans-serif;
+}
+
 .blog-title {
   font-family: "Raleway", sans-serif;
   letter-spacing: 0.05em;
@@ -23,6 +27,17 @@
   --tw-prose-pre-code: theme("colors.gray.800");
   --tw-prose-quotes: theme("colors.gray.900");
   --tw-prose-quote-borders: theme("colors.gray.300");
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: "M PLUS 2", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.025em;
 }
 
 .prose a {
