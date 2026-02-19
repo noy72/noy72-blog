@@ -34,6 +34,7 @@ const fullTitle = title
 const canonicalUrl = buildCanonicalUrl(Astro.url.pathname);
 const absoluteImageUrl = buildAbsoluteImageUrl(image);
 const ogType = isArticle ? "article" : "website";
+const isProduction = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -75,6 +76,27 @@ const ogType = isArticle ? "article" : "website";
           is:inline
           set:html={JSON.stringify(jsonLd)}
         />
+      )
+    }
+    <!-- set:htmlを使用: define:varsではPrettierがargumentsをパースできないため -->
+    {
+      isProduction && (
+        <>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${SITE_CONFIG.gaMeasurementId}`}
+          />
+          <script
+            is:inline
+            set:html={`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${SITE_CONFIG.gaMeasurementId}');
+          `}
+          />
+        </>
       )
     }
   </head>

@@ -4,4 +4,5 @@ export const SITE_CONFIG = {
   defaultImage: "/og-default.jpg",
   description: "Web開発とプログラミングに関する技術ブログ",
   author: "noy72",
+  gaMeasurementId: "G-NWM51D2Q35",
 } as const;
