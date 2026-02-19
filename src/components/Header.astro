@@ -1,8 +1,14 @@
+---
+import { SITE_CONFIG } from "../config/site";
+---
+
 <header class="bg-white border-b border-gray-200">
   <nav
     class="max-w-screen-md mx-auto px-6 py-4 flex justify-between items-center"
   >
-    <a href="/" class="blog-title text-2xl font-light text-gray-900">My Blog</a>
+    <a href="/" class="blog-title text-2xl font-light text-gray-900"
+      >{SITE_CONFIG.siteName}</a
+    >
     <ul class="flex gap-6 list-none p-0 m-0">
       <li>
         <a
