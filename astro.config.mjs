@@ -8,6 +8,12 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
+  markdown: {
+    shikiConfig: {
+      theme: "github-dark",
+      wrap: true,
+    },
+  },
   experimental: {
     csp: {
       directives: [
