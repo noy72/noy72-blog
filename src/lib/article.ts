@@ -56,3 +56,54 @@ function extractDateFromId(id: string): Date | null {
 
   return date;
 }
+
+export type RelatedArticle = {
+  id: string;
+  title: string;
+  publishDate: Date;
+};
+
+/**
+ * タグの共通数が多い順に関連記事を返す
+ *
+ * 共通タグ数が同じ場合は公開日が新しい順にソートする
+ * 現在の記事にタグがない場合は空配列を返す
+ *
+ * @param currentArticle - 関連記事を探す対象の記事
+ * @param allArticles - 検索対象の全記事
+ * @param maxCount - 返す記事の最大数（デフォルト: 3）
+ * @returns 関連記事の配列
+ */
+export function findRelatedArticles(
+  currentArticle: ArticleWithPublishDate,
+  allArticles: ArticleWithPublishDate[],
+  maxCount: number = 3,
+): RelatedArticle[] {
+  const currentTags = currentArticle.data.tags ?? [];
+  if (currentTags.length === 0) return [];
+
+  const currentTagSet = new Set(currentTags);
+
+  return allArticles
+    .filter((article) => article.id !== currentArticle.id)
+    .map((article) => {
+      const tags = article.data.tags ?? [];
+      const commonTagCount = tags.filter((tag) =>
+        currentTagSet.has(tag),
+      ).length;
+      return { article, commonTagCount };
+    })
+    .filter(({ commonTagCount }) => commonTagCount > 0)
+    .toSorted((a, b) => {
+      if (b.commonTagCount !== a.commonTagCount) {
+        return b.commonTagCount - a.commonTagCount;
+      }
+      return b.article.publishDate.getTime() - a.article.publishDate.getTime();
+    })
+    .slice(0, maxCount)
+    .map(({ article }) => ({
+      id: article.id,
+      title: article.data.title,
+      publishDate: article.publishDate,
+    }));
+}

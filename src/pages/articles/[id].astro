@@ -3,7 +3,11 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import TagList from "../../components/TagList.astro";
-import { addPublishDateToArticles } from "../../lib/article.ts";
+import RelatedArticles from "../../components/RelatedArticles.astro";
+import {
+  addPublishDateToArticles,
+  findRelatedArticles,
+} from "../../lib/article.ts";
 import { SITE_CONFIG } from "../../config/site";
 import { buildAbsoluteImageUrl, type BlogPostingSchema } from "../../lib/seo";
 
@@ -25,11 +29,14 @@ export async function getStaticPaths() {
   const articlesWithDate = addPublishDateToArticles(articles);
   return articlesWithDate.map((article) => ({
     params: { id: article.id },
-    props: article,
+    props: {
+      ...article,
+      relatedArticles: findRelatedArticles(article, articlesWithDate),
+    },
   }));
 }
 
-const article = Astro.props;
+const { relatedArticles, ...article } = Astro.props;
 const { Content } = await render(article);
 
 const description =
@@ -91,4 +98,5 @@ const jsonLd: BlogPostingSchema = {
       <Content />
     </div>
   </article>
+  <RelatedArticles articles={relatedArticles} />
 </Layout>
