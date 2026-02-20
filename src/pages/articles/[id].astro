@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import TagList from "../../components/TagList.astro";
 import RelatedArticles from "../../components/RelatedArticles.astro";
+import ArticleNav from "../../components/ArticleNav.astro";
 import {
   addPublishDateToArticles,
   findRelatedArticles,
@@ -26,17 +27,25 @@ export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true;
   });
-  const articlesWithDate = addPublishDateToArticles(articles);
-  return articlesWithDate.map((article) => ({
-    params: { id: article.id },
-    props: {
-      ...article,
-      relatedArticles: findRelatedArticles(article, articlesWithDate),
-    },
-  }));
+  const sorted = addPublishDateToArticles(articles).toSorted(
+    (a, b) => a.publishDate.getTime() - b.publishDate.getTime(),
+  );
+  return sorted.map((article, index) => {
+    const prev = sorted[index - 1];
+    const next = sorted[index + 1];
+    return {
+      params: { id: article.id },
+      props: {
+        ...article,
+        prevArticle: prev ? { id: prev.id, title: prev.data.title } : undefined,
+        nextArticle: next ? { id: next.id, title: next.data.title } : undefined,
+        relatedArticles: findRelatedArticles(article, sorted),
+      },
+    };
+  });
 }
 
-const { relatedArticles, ...article } = Astro.props;
+const { prevArticle, nextArticle, relatedArticles, ...article } = Astro.props;
 const { Content } = await render(article);
 
 const description =
@@ -99,4 +108,5 @@ const jsonLd: BlogPostingSchema = {
     </div>
   </article>
   <RelatedArticles articles={relatedArticles} />
+  <ArticleNav prevArticle={prevArticle} nextArticle={nextArticle} />
 </Layout>

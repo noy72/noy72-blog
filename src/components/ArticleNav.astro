@@ -1,0 +1,45 @@
+---
+interface ArticleLink {
+  id: string;
+  title: string;
+}
+
+interface Props {
+  prevArticle?: ArticleLink;
+  nextArticle?: ArticleLink;
+}
+
+const { prevArticle, nextArticle } = Astro.props;
+---
+
+{
+  (prevArticle || nextArticle) && (
+    <nav
+      aria-label="前後の記事"
+      class="container-main mt-12 pt-8 border-t border-gray-200 grid grid-cols-2 gap-4"
+    >
+      <div>
+        {prevArticle && (
+          <a
+            href={`/articles/${prevArticle.id}`}
+            class="group block text-sm text-gray-600 hover:text-blue-500 transition-colors"
+          >
+            <span class="block text-xs text-gray-400 mb-1">前の記事</span>
+            <span class="group-hover:underline">{prevArticle.title}</span>
+          </a>
+        )}
+      </div>
+      <div class="text-right">
+        {nextArticle && (
+          <a
+            href={`/articles/${nextArticle.id}`}
+            class="group block text-sm text-gray-600 hover:text-blue-500 transition-colors"
+          >
+            <span class="block text-xs text-gray-400 mb-1">次の記事</span>
+            <span class="group-hover:underline">{nextArticle.title}</span>
+          </a>
+        )}
+      </div>
+    </nav>
+  )
+}
