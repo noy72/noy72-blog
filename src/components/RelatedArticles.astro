@@ -1,0 +1,39 @@
+---
+import type { RelatedArticle } from "../lib/article";
+
+interface Props {
+  articles: RelatedArticle[];
+}
+
+const { articles } = Astro.props;
+---
+
+{
+  articles.length > 0 && (
+    <aside class="container-main mt-12">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">関連記事</h2>
+      <ul class="space-y-3">
+        {articles.map((article) => (
+          <li>
+            <a
+              href={`/articles/${article.id}`}
+              class="text-gray-600 hover:text-blue-500 transition-colors"
+            >
+              {article.title}
+            </a>
+            <time
+              datetime={article.publishDate.toISOString()}
+              class="block text-sm text-gray-400"
+            >
+              {article.publishDate.toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}

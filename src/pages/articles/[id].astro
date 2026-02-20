@@ -3,8 +3,12 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import TagList from "../../components/TagList.astro";
+import RelatedArticles from "../../components/RelatedArticles.astro";
 import ArticleNav from "../../components/ArticleNav.astro";
-import { addPublishDateToArticles } from "../../lib/article.ts";
+import {
+  addPublishDateToArticles,
+  findRelatedArticles,
+} from "../../lib/article.ts";
 import { SITE_CONFIG } from "../../config/site";
 import { buildAbsoluteImageUrl, type BlogPostingSchema } from "../../lib/seo";
 
@@ -35,12 +39,13 @@ export async function getStaticPaths() {
         ...article,
         prevArticle: prev ? { id: prev.id, title: prev.data.title } : undefined,
         nextArticle: next ? { id: next.id, title: next.data.title } : undefined,
+        relatedArticles: findRelatedArticles(article, sorted),
       },
     };
   });
 }
 
-const { prevArticle, nextArticle, ...article } = Astro.props;
+const { prevArticle, nextArticle, relatedArticles, ...article } = Astro.props;
 const { Content } = await render(article);
 
 const description =
@@ -102,5 +107,6 @@ const jsonLd: BlogPostingSchema = {
       <Content />
     </div>
   </article>
+  <RelatedArticles articles={relatedArticles} />
   <ArticleNav prevArticle={prevArticle} nextArticle={nextArticle} />
 </Layout>
