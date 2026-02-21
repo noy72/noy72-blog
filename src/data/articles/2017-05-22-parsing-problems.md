@@ -1,7 +1,6 @@
 ---
 title: 構文解析初心者でも解ける問題を集めた＋解説
 tags: ["競プロ", "構文解析"]
-
 ---
 
 水色コーダーが構文解析の問題を解きました。
@@ -118,7 +117,7 @@ http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2330475#1
 ### 注意点
 
 **集合はソートしておく。**  
-set\_unionやset\_intersectionは、ソートされていないと正しい集合を返しません。
+set_unionやset_intersectionは、ソートされていないと正しい集合を返しません。
 
 **NULLを出力する。**  
 解が空集合の場合、NULLを出力しなければなりません。
@@ -128,7 +127,7 @@ set\_unionやset\_intersectionは、ソートされていないと正しい集�
 
 ### 問題概要
 
-0, 1, 2, P, Q, R, -, *, +, (, ) からなる式が与えられます。
+0, 1, 2, P, Q, R, -, \*, +, (, ) からなる式が与えられます。
 P, Q, R は、それぞれ 0 ~ 2 までの数値へ置き換えることができます。
 このとき、式の解が 2 であるような P, Q, R の組み合わせは何通りあるでしょうか。
 
@@ -137,8 +136,8 @@ P, Q, R は、それぞれ 0 ~ 2 までの数値へ置き換えることがで�
 P, Q, R の組み合わせは 27 通りしかないので、全部試して解が 2 になる回数を数えればよさそうです。
 次に、式をどのようにして演算すれば良いのかを考えます。
 
-演算子 +, * は、与えられた数値のmax, minを取ればよいです。
- <span>-</span> 演算子は、 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1012 の c 演算子のように処理すればよさそうです。
+演算子 +, \* は、与えられた数値のmax, minを取ればよいです。
+<span>-</span> 演算子は、 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1012 の c 演算子のように処理すればよさそうです。
 
 つまり、expr→term（ここで <span>-</span> 演算子を処理）→factor→numberとすれば計算できます。
 ただ、 <span>-</span> 演算子は連続することもあります。
@@ -150,7 +149,7 @@ int term(State &begin){
   if (*begin == '-') {
     begin++;
     //inverted(x) = xを反転した値
-    return inverted(term(begin)); 
+    return inverted(term(begin));
   } else {
     return factor(begin);
   }
@@ -176,7 +175,7 @@ http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2330491#1
 
 ```cpp
 if(*being == '>' && *(begin + 1) == '>'){
-  begin++; 
+  begin++;
   begin++;
   ret = ret >> term(begin);
 }
