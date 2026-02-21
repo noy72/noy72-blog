@@ -3,12 +3,14 @@ import { defineConfig } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import remarkImgurImage from "./src/plugins/remark-imgur-image.ts";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
   markdown: {
+    remarkPlugins: [remarkImgurImage],
     shikiConfig: {
       theme: "github-dark",
       wrap: true,

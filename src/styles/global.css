@@ -66,3 +66,16 @@ body {
   padding: 0;
   color: theme("colors.gray.100");
 }
+
+.imgur-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.imgur-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: theme("colors.gray.500");
+}
