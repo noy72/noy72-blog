@@ -6,15 +6,9 @@ thumbnail: "https://i.imgur.com/0QPRQarm.webp"
 
 並列実行について調べた
 
-
-
 <!-- https://i.imgur.com/0QPRQar -->
 
-
-
 [multiprocessing --- プロセスベースの並列処理 — Python 3.10.4 ドキュメント](https://docs.python.org/ja/3/library/multiprocessing.html#module-multiprocessing.pool)
-
-
 
 ## グローバル変数を共有しているように見える
 
@@ -42,8 +36,6 @@ if __name__ == "__main__":
 
 `add` 関数内で `sleep(1)` したりすると大抵は別プロセスで動くはず。
 
-
-
 ## 処理方法を想像する
 
 ↓のように動いていて、タスクを完了したワーカーはまたワーカーキューに `put` される、と想像していた。
@@ -51,24 +43,16 @@ if __name__ == "__main__":
 https://i.imgur.com/qBe8h1b
 キューの先頭をマッチングする
 
-
-
 [実装](https://github.com/python/cpython/blob/f4c03484da59049eb62a9bf7777b963e2267d187/Lib/multiprocessing/pool.py#L97)を眺めてみると、ワーカーみんなでタスクキューを `get` しているように見える。つまり↓みたいな感じ。
-
-
 
 https://i.imgur.com/MQxZ37j
 複数のワーカーがタスクキューからタスクを取り出す
-
-
 
 「タスクキューの先頭のタスクを取得して実行する関数」を指定された個数の `Process` で実行している。確かに、ワーカーをキューに入れて先頭から割り当てる必要は全くない。暇なワーカーが勝手にタスクをこなしてくれれば良い。
 
 `Pool.map` で 1 つのワーカーしか動かない理由は、たまたまもっとも早く動いた `Process` が、別の `Process` が動く前に全てのタスクを完了させたからだと思う（本当かは怪しい）。
 
 実装はこの辺り → [cpython/pool.py at f4c03484da59049eb62a9bf7777b963e2267d187 · python/cpython](https://github.com/python/cpython/blob/f4c03484da59049eb62a9bf7777b963e2267d187/Lib/multiprocessing/pool.py#L312)
-
-
 
 ### 順序は不定
 
@@ -120,9 +104,6 @@ Process-9
 
 `Pool.map` で最初に動く `Process` がどれかもわからない。
 
-
-
 ## 感想
 
 並列・並行、プロセス・スレッドみたいな話題が出るとめちゃくちゃあやふやな理解でいることに気がついた。トランザクション処理とか何も考えずに実装してバグに苦しみそう。
-

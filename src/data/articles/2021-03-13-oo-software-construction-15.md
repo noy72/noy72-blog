@@ -2,8 +2,6 @@
 title: 『オブジェクト指向入門 第2版』の15章を読んだ
 tags: ["技術書"]
 thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
-
-
 ---
 
 第15章　多重継承
@@ -16,7 +14,7 @@ thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
 
 ---
 
-別の例として，*Numeric*（数値）と*Comparable*（比較可能な値）が挙げられる．この二つのクラスを親にすることで，比較可能な何らかの値を表すクラスを自由に作成できる．
+別の例として，_Numeric_（数値）と*Comparable*（比較可能な値）が挙げられる．この二つのクラスを親にすることで，比較可能な何らかの値を表すクラスを自由に作成できる．
 
 ## 特性の改名
 
@@ -35,7 +33,7 @@ class FrenchDriver extend Driver { ... }
 class USDriver extend Driver { ... }
 class FrenchUSDriver extend FrenchDriver, USDriver {
   pay_french_fee  // FrenchDriverから継承したpay_feeをpay_french_feeと改名
-  pay_us_fee      // USDriverから継承したpay_feeをpay_us_feeと改名                                                   
+  pay_us_fee      // USDriverから継承したpay_feeをpay_us_feeと改名
 }
 ```
 

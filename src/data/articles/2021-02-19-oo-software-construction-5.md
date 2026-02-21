@@ -2,7 +2,6 @@
 title: 『オブジェクト指向入門 第2版』の5章を読んだ
 tags: ["技術書"]
 thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
-
 ---
 
 第5章　オブジェクト技術への道

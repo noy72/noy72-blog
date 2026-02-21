@@ -12,7 +12,7 @@ https://www.kindaikagaku.co.jp/book_list/detail/9784764904088/|embed
 
 学生の時に読もうと思ったけど全然読み進められなかったこの書籍に再び挑戦する。読み切れる気は当然しない（読み切ったとしたら 150 記事ぐらい書いたことになる）。
 
-2 章 1 節は Insertion sort である。 
+2 章 1 節は Insertion sort である。
 
 ## Insertion sort の実装
 
@@ -120,13 +120,13 @@ $A[1..n-1]$ に $v$ が存在しないとき $j=NIL$ である。
 
 ### 2.1-4
 
-$n$-bit の数値 $A, B$ の和を計算する。数値は長さ $n$ の配列によって表される。 
+$n$-bit の数値 $A, B$ の和を計算する。数値は長さ $n$ の配列によって表される。
 
 ```pcode
 c = 要素がすべて 0 で長さが (n + 1) の配列
 for i = n to 1
     sum = a[i] + b[i] + c[i + 1]
-    c[i + 1] = round(sum / 2) // 小数点以下を切り捨て 
+    c[i + 1] = round(sum / 2) // 小数点以下を切り捨て
     c[i] = sum % 2
 ```
 
@@ -142,7 +142,7 @@ for i = n to 1
 
 $$
 \begin{align}
-  sum 
+  sum
   & = a[3] + b[3] + c[4] \nonumber \\
   & = 1 + 1 + 0 \nonumber \\
   & = 2 \nonumber
@@ -155,7 +155,7 @@ $$
 
 $$
 \begin{align}
-  sum 
+  sum
   & = a[2] + b[2] + c[3] \nonumber \\
   & = 1 + 1 + 1 \nonumber \\
   & = 3 \nonumber
@@ -168,18 +168,18 @@ $$
 
 $$
 \begin{align}
-  sum 
+  sum
   & = a[1] + b[1] + c[2] \nonumber \\
   & = 0 + 1 + 1 \nonumber \\
   & = 2 \nonumber
-\end{align} 
+\end{align}
 $$
 
 `c = [1, 0, 1, 0]`
 
 #### 結果
 
-$c = 1010_2 = 10_{10}$ 
+$c = 1010_2 = 10_{10}$
 
 $3 + 7$ の計算ができている。
 

@@ -2,12 +2,9 @@
 title: サムネイルを表示するようにした
 tags: ["サイト更新"]
 thumbnail: "https://i.imgur.com/UMAMTmxm.webp"
-
 ---
 
 記事中の画像URLを取得し，サムネイルに設定するようにした
-
-
 
 https://i.imgur.com/UMAMTmx
 before
@@ -30,8 +27,10 @@ const extractThumbnailUrl = (markdown) => {
   return convertThumbnailUrl(markdown.slice(start, end).split("|")[0]);
 };
 
-const convertThumbnailUrl = (url) => 
-	url ? `https://i.imgur.com/${url.substring(url.lastIndexOf("/") + 1)}#.png` : "";
+const convertThumbnailUrl = (url) =>
+  url
+    ? `https://i.imgur.com/${url.substring(url.lastIndexOf("/") + 1)}#.png`
+    : "";
 ```
 
 記事からimgurのURLを探して，URL文字列を取得する．URLの終端は改行か空白で判定する．基本的に，記事に表示されている画像をサムネイルとして扱うが，記事には画像を表示せずにサムネイルを設定したいときもあるかもしれないので，以下の両方の形式に対応できるようにした。

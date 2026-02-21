@@ -1,5 +1,5 @@
 ---
-title: Selenium 4 で Firefox に拡張機能をインストールする 
+title: Selenium 4 で Firefox に拡張機能をインストールする
 tags: ["Selenium", "ブラウザー拡張機能"]
 thumbnail: "https://i.imgur.com/UOmSLAgm.webp"
 ---
@@ -11,9 +11,7 @@ Selenium で拡張機能がインストールされたブラウザを操作す�
 ### 環境
 
 - Intel Mac
-- Python  3.9.10
-
-
+- Python 3.9.10
 
 ## 準備
 
@@ -25,10 +23,10 @@ Selenium をインストールする。今回はバージョン 4.1.0 を使う�
 
 Mozilla によって署名されていないアドオン（拡張機能はアドオンに含まれる）はインストールできない。ただし、Firefox の中でも一部のバージョンでは設定を変更することでインストールが可能である。
 
-> Firefox [延長サポート版 (ESR)](https://www.mozilla.org/firefox/organizations/)、Firefox [Developer Edition](https://www.mozilla.org/firefox/developer/) および [Nightly](https://nightly.mozilla.org/) バージョンでは、[Firefox の設定エディター](https://support.mozilla.org/ja/kb/about-config-editor-firefox) (*about:config* ページ) で xpinstall.signatures.required 設定の値を **false** に変更することで、アドオン署名の強制を無効にできます。  
+> Firefox [延長サポート版 (ESR)](https://www.mozilla.org/firefox/organizations/)、Firefox [Developer Edition](https://www.mozilla.org/firefox/developer/) および [Nightly](https://nightly.mozilla.org/) バージョンでは、[Firefox の設定エディター](https://support.mozilla.org/ja/kb/about-config-editor-firefox) (_about:config_ ページ) で xpinstall.signatures.required 設定の値を **false** に変更することで、アドオン署名の強制を無効にできます。  
 > [
-  Firefox のアドオン署名 | Firefox ヘルプ
-](https://support.mozilla.org/ja/kb/add-on-signing-in-firefox)
+> Firefox のアドオン署名 | Firefox ヘルプ
+> ](https://support.mozilla.org/ja/kb/add-on-signing-in-firefox)
 
 個人的に利用するだけであれば署名なしで利用できるバージョンを選んだほうが良い。今回はFirefox Developer Edition を brew でインストールした。バージョンは 97.0 である。
 
@@ -37,8 +35,6 @@ Mozilla によって署名されていないアドオン（拡張機能はアド
 ## geckodriver
 
 [GitHub - mozilla/geckodriver: WebDriver for Firefox](https://github.com/mozilla/geckodriver) からダウンロードする。今回は 0.30.0 を使う。
-
-
 
 ## 拡張機能を作る
 
@@ -77,6 +73,7 @@ Mozilla によって署名されていないアドオン（拡張機能はアド
 > https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension
 
 ## Selenium で動かす
+
 以下のように書ける。
 
 ```python:title=test_extension.py
@@ -101,7 +98,7 @@ class TestExtension(unittest.TestCase):
         )
         d.install_addon(str(Path('./src').resolve()), temporary=True)
         self.driver = d
-    
+
     def test_delete_logo(self) -> None:
         self.driver.get("https://www.google.com")
         sleep(10)
@@ -119,7 +116,7 @@ class TestExtension(unittest.TestCase):
 └── test_extension.py
 ```
 
-Firefox の特定のバージョンを利用している場合は `options.binary` にバイナリのパスを与える必要がある。参考：[firefoxOptions - WebDriver | MDN](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions) 
+Firefox の特定のバージョンを利用している場合は `options.binary` にバイナリのパスを与える必要がある。参考：[firefoxOptions - WebDriver | MDN](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions)
 
 geckodriver は上記の書き方以外にも環境変数で設定しておくこともできる。
 
@@ -129,14 +126,8 @@ Selenium の実行方法を調べるとサンプルコードがたくさん出�
 
 警告を止めようと思ってドキュメントを読んでもよくわからなかったのでコードを読んで調べた。間違った書き方をしている可能性は十分にある。
 
-
-
 https://i.imgur.com/UOmSLAg
 拡張機能がインストールされました
-
-
-
-
 
 ##temporary=False の場合
 
@@ -170,15 +161,13 @@ class TestExtension(unittest.TestCase):
                         zip_file.write(f.read())
         d.install_addon(xpi, temporary=False)
         self.driver = d
-    
+
     def test_delete_logo(self) -> None:
         self.driver.get("https://www.google.com")
         sleep(10)
         self.driver.close()
 
 ```
-
-
 
 ### manifest.json に id を追加
 
@@ -198,8 +187,6 @@ id がなくても一時的なアドオンとして読み込めるが、一時�
 
 [初めての拡張機能 - Mozilla | MDN](https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension)
 
-
-
 ###署名がない拡張機能のインストールを許可する
 
 ```python
@@ -207,8 +194,6 @@ options.set_preference("xpinstall.signatures.required", False)
 ```
 
 を追加する。`about:config`に出てくる項目はすべてこれで設定できると思う（未確認）。
-
-
 
 ### xpi ファイルに圧縮する
 
@@ -222,13 +207,9 @@ zip -r -FS ../my-extension.zip * --exclude '*.git*'
 
 [Package your extension | Firefox Extension Workshop](https://extensionworkshop.com/documentation/publish/package-your-extension/)
 
-
-
 ### install_addon する
 
 `xpi` ファイルへの絶対パスを与える。
-
-
 
 ## 感想
 

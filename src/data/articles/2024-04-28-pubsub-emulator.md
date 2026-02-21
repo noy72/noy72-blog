@@ -5,7 +5,6 @@ tags: ["Google Cloud"]
 
 Node.js Client の PubSub と v1.SubscriberClient はエミュレータに接続するための設定方法が異なる。
 
-
 ## やりたいこと
 
 エミュレータを使って、メッセージを push, pull する。
@@ -13,7 +12,6 @@ Node.js Client の PubSub と v1.SubscriberClient はエミュレータに接続
 ## やったこと
 
 エミュレータを実行して、`PUBSUB_EMULATOR_HOST` と `PUBSUB_PROJECT_ID` を設定した。
-
 
 ## 起こったこと
 
@@ -23,7 +21,6 @@ Node.js Client の PubSub と v1.SubscriberClient はエミュレータに接続
 - `v1.SubscriberClient.pull` で `Resource not found` が発生する
   - `PubSub.getSubscriptions` で subsucription 一覧を確認すると、該当の subscription は作成されている
 - `v1.SubscriberClient.listSubscriptions` で `User not authorized to perform this action.` が発生する
-
 
 ### 例
 
@@ -48,7 +45,6 @@ await subscriberClient.pull({  // Error発生。subscription がない
 結果、`v1.SubscriberClient` はエミュレータではなく本番環境の Pub/Sub サービスを使っていた。
 
 ## 解決法
-
 
 `v1.SubscriberClient` 作成時にオプションを渡してエミュレータを使うように設定する。
 `PubSub` の Config をそのまま渡すのが簡単だと思う。

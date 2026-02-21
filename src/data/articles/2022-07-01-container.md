@@ -5,21 +5,13 @@ tags: ["Docker"]
 
 エンジニア Hub で公開されているコンテナ技術入門を読んだ。
 
-
-
 https://eh-career.com/engineerhub/entry/2019/02/05/103000|embed
 
-
-
 Docker だけではなく、コンテナの要素技術について少しは知っておく必要があったのでこの記事を読んだ。Docker の書籍で要素技術について解説していることもあるがそこまで詳細には書かれていないので、要素技術に焦点を当てて解説してくれるこの記事は足りない情報を埋めてくれてありがたい。
-
-
 
 ## 環境
 
 UTM を使って Ubuntu を動かし、その上でコマンドを実行した。
-
-
 
 - M1 MacBook Pro
 
@@ -27,8 +19,6 @@ UTM を使って Ubuntu を動かし、その上でコマンドを実行した�
 - UTM 3.2.4
 - Ubuntu 20.04.4 LTS 64-bit ARM (ARMv8/AArch64) desktop image
   - [Ubuntu 20.04.4 LTS (Focal Fossa) Daily Build](https://cdimage.ubuntu.com/focal/daily-live/current/)
-
-
 
 ## 作業ログ
 
@@ -48,8 +38,6 @@ apt-get install -y docker-ce
 
 `mktemp` で一時的なファイルやディレクトリを作れる。`$ROOTFS` には `/tmp/tmp/xxxxx` というパスが入る。作成直後は当然空。
 
-
-
 ### docker コンテナを \$ROOTFS 以下に解凍
 
 `docker container create xxxx`（`container` は省略できる）でコンテナを作成できる。`$CID` にはコンテナの id が入る。コンテナの id は `docker ps -a` で見られる。
@@ -61,13 +49,9 @@ ubuntu@utm:~$ ls $ROOTFS
 bin  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 ```
 
-
-
 ### bash のリンク
 
 `/usr/local/bin` 以下に bash がなかったので `/bin/bash` をリンクした。
-
-
 
 ### id
 
@@ -77,8 +61,6 @@ bin  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp 
 ubuntu@utm:~$ id
 uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),132(lxd),133(sambashare)
 ```
-
-
 
 ### コンテナの作成
 
@@ -97,13 +79,9 @@ cgexec -g cpu,memory:$UUID \
 
 何をやっているかがわからないのでひとつずつ見ていく。
 
-
-
 ### cgexec
 
 与えたコントロールグループでタスクを実行する。ここでは、`cgset` で設定した制限が `unshare` に適用される。
-
-
 
 ### unshare
 
@@ -133,17 +111,15 @@ ubuntu@utm:~$ sudo unshare --fork --pid --mount-proc ps
 
 - p: PID namespace
 
-- f: fork  
+- f: fork
 
   子プロセスでコマンドを実行する
 
-- r: map-root-user  
+- r: map-root-user
 
   > Run the program only after the current effective user and group IDs have been mapped to the superuser UID and GID in the newly created user namespace.
 
   よくわかってない。ユーザー名前空間を新しく作成すると既存のユーザーが持つ権限が全て失われて色々面倒だから、既存のユーザーやグループを新しく作った名前空間から参照できるようにする、といった感じ？
-
-
 
 ### mount
 
@@ -151,31 +127,19 @@ ubuntu@utm:~$ sudo unshare --fork --pid --mount-proc ps
 
 `--bind` で特定のディレクトリをマウントできる。`mount --bind $(tty) $ROOTFS$(tty)` は `$(tty)` を `$ROOTFS` 以下にマウントする
 
-
-
-
-
 ### tty
 
 > tty - print the file name of the terminal connected to standard input
 
-
-
->ttyとは、標準入出力となっている端末デバイス(制御端末、controlling terminal)の名前を表示する Unix 系のコマンドである。
+> ttyとは、標準入出力となっている端末デバイス(制御端末、controlling terminal)の名前を表示する Unix 系のコマンドである。
 >
->https://ja.wikipedia.org/wiki/Tty
-
-
-
-
+> https://ja.wikipedia.org/wiki/Tty
 
 ### ptmx, pts
 
 > ptmx, pts - pseudoterminal master and slave
 
 [Ubuntu Manpage: ptmx, pts - 擬似端末のマスタとスレーブ](https://manpages.ubuntu.com/manpages/jammy/ja/man4/pts.4.html)
-
-
 
 よくわからない。
 
@@ -190,15 +154,9 @@ ubuntu@utm:~$ ps
 
 ホストマシンの MacBook で `ps` すると ttys000（末尾の数値は異なる）が表示された。
 
-
-
-###  capsh
+### capsh
 
 コマンドのラッパ。[Capability](https://man7.org/linux/man-pages/man7/capabilities.7.html) や環境を指定してコマンドを実行する。`--chroot`を使えばルートディレクトリが変更できる。`-drop`は列挙された Capabilitiy を除去する。
-
-
-
-
 
 ### コンテナ作成時の注意点
 
@@ -206,7 +164,7 @@ ubuntu@utm:~$ ps
 
 `/bin/bash` の実行に失敗する理由は、そもそも bash が存在しなかったり必要なライブラリがなかったりなどが考えられる。ややこしいが、bashが存在するが必要なライブラリがない場合も `No such file or directory` が出る。
 
-必要なライブラリは `ldd`  で調べられる。
+必要なライブラリは `ldd` で調べられる。
 
 ```shell
 ubuntu@utm:~$ ldd /bin/bash
@@ -220,8 +178,6 @@ ubuntu@utm:~$ ldd /bin/bash
 エラーの原因は ubuntu と `docker container create bash` で作成したコンテナのアーキテクチャが異なることだと考えられる。bash の代わりに arm 版の ubuntu を利用すると（`sudo docker container create ubuntu --platform linux/arm64`）、`execve '/bin/bash' failed!` は起こらなくなった。
 
 （`--platform linux/arm64` をつけて bash コンテナを作成しても実行できなかったが、それについては深掘りしていない）
-
-
 
 ### コンテナ内でのコマンド実行例
 
@@ -247,13 +203,9 @@ udev on /dev/null type devtmpfs (rw,nosuid,noexec,relatime,size=1948692k,nr_inod
 
 `ip` は実行できなかった。
 
-
-
 ### IPC Namespace
 
 IPC Namespace では SysV IPC オブジェクトや POSIX キューを隔離する。 interprocess communication mechanisms なので、プロセス間の通信をするための資源を隔離するのに使っていそう。
-
-
 
 #### SysV IPCオブジェクト
 
@@ -267,15 +219,11 @@ System V interprocess communication (IPC) mechanisms というものがある。
 
 のことらしい。
 
-
-
 #### Posix キュー
 
 [mq_overview(7) - Linux manual page](https://man7.org/linux/man-pages/man7/mq_overview.7.html)
 
 プロセス間でメッセージをやり取りするためのキュー。
-
-
 
 ### \$\$
 
@@ -301,8 +249,6 @@ unshare --mount-proc -uipr --fork /bin/sh
 
 当然だが、`unshare`で PID を共有しないことで `$` が1を返すことが確認できる。
 
-
-
 #### Namespace に接続する
 
 > Dockerではdocker execコマンドが実行中のコンテナに接続するコマンドとして広く使われていますが、こちらも実行中のコンテナ(プロセス)の Namespace に関連付けて、指定したコマンドを実行するものです。
@@ -310,8 +256,6 @@ unshare --mount-proc -uipr --fork /bin/sh
 > [コンテナ技術入門 - 仮想化との違いを知り、要素技術を触って学ぼう - エンジニアHub｜Webエンジニアのキャリアを考える！](https://eh-career.com/engineerhub/entry/2019/02/05/103000)
 
 なるほど〜〜
-
-
 
 ### SUID rootとCapability
 
@@ -332,25 +276,14 @@ rtt min/avg/max/mdev = 0.110/0.110/0.110/0.000 ms
 
 理由は調べていない。
 
-
-
-
-
 ## 感想
 
 知らない概念がいくつも出てきた。全部を理解するのは難しそうなので、とりあえず概念や機能を知る程度の理解にとどめておく。
 
 実際にコマンドを実行して名前空間の分離や Control Group を使った資源の制限をしたことで、単に文章を読むよりも内容を頭に入れられた気がする。
 
-
-
->また、コンテナの要素技術の使い方を学ぶにはこの記事で登場した `unshare` コマンドや `capsh` コマンド、ip(`ip netns`)コマンドのソースコードを読むのがおすすめです。システムコールをどのように使っているかを知れば、他のコンテナラインタイムの実装を調査する際にも大いに役に立つでしょう。
+> また、コンテナの要素技術の使い方を学ぶにはこの記事で登場した `unshare` コマンドや `capsh` コマンド、ip(`ip netns`)コマンドのソースコードを読むのがおすすめです。システムコールをどのように使っているかを知れば、他のコンテナラインタイムの実装を調査する際にも大いに役に立つでしょう。
 >
->ここから、さらに掘り下げて学びたい方はカーネルのソースコードを読みましょう。コンテナの要素技術をすべて一度に学ぶのは大変です。まずはそれぞれの概要を理解して、その中から興味をもったものに的を絞って掘り下げていくことをおすすめします。
+> ここから、さらに掘り下げて学びたい方はカーネルのソースコードを読みましょう。コンテナの要素技術をすべて一度に学ぶのは大変です。まずはそれぞれの概要を理解して、その中から興味をもったものに的を絞って掘り下げていくことをおすすめします。
 
 コードリーディングはあまりやったことはないけど、確かに勉強になるなー。使っている言語とかフレームワークとかを眺めてみようかな。
-
-
-
-
-

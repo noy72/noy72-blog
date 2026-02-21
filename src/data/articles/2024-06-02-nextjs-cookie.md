@@ -1,13 +1,9 @@
 ---
-
 title: Next.js で Cluod CDN の署名付き Cookie を使用するときにつまづいたこと
 tags: ["Google Cloud", "Next.js"]
-
 ---
 
 署名付き Cookie を設定して Cloud Storage の静的ファイルを配信するため、Next.js でエンコードせずに Cookie を設定する方法を調べて、最終的に Cookie 生成 API を立てた。
-
-
 
 ## やりたいこと
 
@@ -17,11 +13,7 @@ tags: ["Google Cloud", "Next.js"]
 
 最終的にやったこと: Cookie 生成 API を作る。
 
-
-
 ## つまづいたこと
-
-
 
 ### Cookie の値がエンコードされる
 
@@ -39,7 +31,7 @@ Cloud CDN で使用する署名付き Cookie には `=` が含まれているた
 
 Server Actions では、 `cookies()`は使えるがレスポンスヘッダーに直接値を設定できない。
 
-### middleware に _rscリクエストが飛んでCookieが書き換わってしまう
+### middleware に \_rscリクエストが飛んでCookieが書き換わってしまう
 
 これは Cookie の問題ではないが見落としていたポイント。
 
