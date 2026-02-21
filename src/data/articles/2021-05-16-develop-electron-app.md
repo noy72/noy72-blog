@@ -1,12 +1,9 @@
 ---
 title: Electronアプリ開発中に出会ったこといくつか
 tags: ["React", "TypeScript", "Electron", "ネイティブアプリ"]
-
 ---
 
 Electronのアプリ開発中にいくつか勘違いしたり，よく分からなかったり，調べたことをまとめた．
-
-
 
 ## React
 
@@ -17,25 +14,23 @@ Electronのアプリ開発中にいくつか勘違いしたり，よく分から
 ```typescript
 class Content extends React.Component<Record<string, unknown>> {
   searchBoxRef: RefObject<HTMLInputElement>;
-  
+
   constructor(props: Record<string, unknown>) {
         super(props);
         this.searchBoxRef = createRef();
   }
-  
+
   render() {
         return <>
            <input ref={this.searchBoxRef} />
         </>;
   }
-  
+
   // this.searchBoxRef.current!.value で入力された値が取れる
 }
 ```
 
 `state`を使う場合は，`onChange`で変更のたびに`state`を更新する．
-
-
 
 ### forwardRefの型
 
@@ -61,13 +56,13 @@ export default Selector;
 
 普通の関数コンポーネントだとエラーが出るので，`ForwardRefRenderFunction`にする必要がある．
 
- ## Spectron
+## Spectron
 
 ### テストでメインプロセスにメッセージを送る
 
 ```typescript
-import { Application } from 'spectron';
-  
+import { Application } from "spectron";
+
 app = new Application(/* applicationConfig */);
 ```
 
@@ -87,10 +82,6 @@ app.electron.ipcRenderer.send(/* message */, /* value */));
 
 テストでメインプロセスにメッセージを送りたいときは，どうするのが正しいんだろう？
 
-
-
-
-
 ## lowdb
 
 ### 値の更新が反映されない
@@ -100,17 +91,13 @@ app.electron.ipcRenderer.send(/* message */, /* value */));
 #### 雑な解決法
 
 ```typescript
- adapter = new FileSync<型>(ファイル);
- db = low(adapter)
+adapter = new FileSync<型>(ファイル);
+db = low(adapter);
 ```
 
 上記のコードが書かれたファイルをメインプロセスとレンダラープロセスでインポートしており，`db`が複数作成されていた．ファイルが変更された後に`new FileSync`をし直して値を読み込むと，ちゃんと変更後の値になっていた．
 
 `nodeIntegration: true`にして，何でもかんでもレンダラープロセスから呼び出すようにしているのがそもそも良くない．
-
-
-
-
 
 ## Typescript / JavaScript
 
@@ -119,16 +106,14 @@ app.electron.ipcRenderer.send(/* message */, /* value */));
 非同期のメソッド`api.get()`のテストがしたいので，以下のようなテストを書いた．
 
 ```typescript
-description('APIのテスト', () => {
-	it('get', async () => {
+description("APIのテスト", () => {
+  it("get", async () => {
     const res = await api.get();
     // 処理
     assert.strictEqual(/* 条件 */);
   });
 });
 ```
-
-
 
 別のテストと処理が重複していたので，共通部分を関数に抽出した．
 
@@ -154,22 +139,20 @@ description('APIのテスト', () => {
 抽出した関数は非同期なので，`await`が必要だった（または`done`を使う）．何も考えずに抽出したらダメだった．
 
 ```typescript
-description('APIのテスト', () => {
-	it('get', async () => {
+description("APIのテスト", () => {
+  it("get", async () => {
     const syori_result = await syori(); // await してなかった
-    assert.strictEqual(/* 条件 */)
+    assert.strictEqual(/* 条件 */);
   });
 });
 ```
-
-
 
 ### Array.findが常に一番目の値を返す
 
 以下のようなコードを書くと，常に`xs`の一番目の値が返ってくる．
 
 ```typescript
-xs.find(async (x) => await x.get())
+xs.find(async (x) => await x.get());
 ```
 
 #### 原因
@@ -177,8 +160,6 @@ xs.find(async (x) => await x.get())
 非同期関数は`Promise`を返すので，常に真．そりゃそうだ．<!--どうも-->，「`await`で中身を取り出す」みたいな印象があるらしい．
 
 結局は`Promise.all`を使った．
-
-
 
 ## 感想
 

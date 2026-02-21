@@ -9,7 +9,7 @@ tags: ["Google Cloud"]
 
 ## ADC を使った認証
 
- `gcloud auth application-default login` すれば Cloud Storage や Secret Manager は利用できる。ただし、Drive や Gmail などの個人のデータにアクセスできる API は利用できない。
+`gcloud auth application-default login` すれば Cloud Storage や Secret Manager は利用できる。ただし、Drive や Gmail などの個人のデータにアクセスできる API は利用できない。
 
 この場合はログインするときに `--client-id-file` オプションを与えれば良い。具体的には、
 
@@ -33,20 +33,18 @@ Cloud Function などから特定のユーザーのメールを読みたい場�
 この場合は、
 
 1. https://console.cloud.google.com/apis/credentials から OAuth client ID（Web application）を作成する
-   
    1. Authorized redirect URIs に `https://developers.google.com/oauthplayground` を入れておく
 
 2. https://developers.google.com/oauthplayground から Gmail API にチェックをつけて Authorize APIs する
-   
    1. 右上の歯車アイコン > "Use your own OAuth credentials" にチェックを入れて、作成した Oauth client ID を入力する
 
 3. ログインする
 
 4. `access_token` と `refresh_token` を取得する
 
-5. ```python
+5. ````python
    from google.oauth2.credentials import Credentials
-   
+
    credentials = Credentials(
                token=<access_token>,
                token_uri="https://oauth2.googleapis.com/token",
@@ -55,7 +53,7 @@ Cloud Function などから特定のユーザーのメールを読みたい場�
                client_secret=<client_secret>,
            )
    service = build('gmail', 'v1', credentials=credentials)```
-   ```
+   ````
 
 こんな感じで認証情報を渡す。
 
@@ -63,6 +61,6 @@ Cloud Function などから特定のユーザーのメールを読みたい場�
 
 ## こんな概念もあるよ
 
-[サービス アカウントの権限借用の管理  |  IAM のドキュメント  |  Google Cloud](https://cloud.google.com/iam/docs/impersonating-service-accounts)
+[サービス アカウントの権限借用の管理 | IAM のドキュメント | Google Cloud](https://cloud.google.com/iam/docs/impersonating-service-accounts)
 
 今回の話とは関係ないかも。

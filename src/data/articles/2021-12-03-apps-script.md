@@ -6,8 +6,6 @@ thumbnail: "https://i.imgur.com/ggyXgx0m.webp"
 
 UrlFetchApp.fetch を呼んだらエラーが起きたので調べた。
 
-
-
 スプレッドシートで使うGoogle Apps Script (GAS) を作っているときの話。
 
 ## UrlFetchApp
@@ -17,7 +15,6 @@ GAS で API などからデータを取得するには `UrlFetchApp` を使う�
 [Class UrlFetchApp &nbsp;|&nbsp; Apps Script &nbsp;|&nbsp; Google Developers](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app)
 
 `UrlFetchApp.fetch(<URL>)` で API からデータを取得したり、サイトの HTML を取得したりすることができる。
-
 
 ### Oauth Scopes
 
@@ -44,6 +41,7 @@ GAS で `UrlFetchApp.fetch` を実行するには ` https://www.googleapis.com/a
 ```
 
 ## Simple Triggers
+
 [Simple Triggers &nbsp;|&nbsp; Apps Script &nbsp;|&nbsp; Google Developers](https://developers.google.com/apps-script/guides/triggers)
 
 GAS では特定の関数名をつけることで、特定のイベントの発生時に関数を実行することができる。例えば、`onEdit` だとセルを変更したときに実行される。
@@ -59,7 +57,6 @@ Exception: You do not have permission to call UrlFetchApp.fetch. Required permis
 
 権限がないというエラーだが、`Project OAuth Scopes` に `external_request` が追加されていてもこのエラーが出る。
 
-
 ## Trigger を作る
 
 特定のイベント発生時に `UrlFetchApp` を呼ぶためには、Simple Triggers ではなく自分でトリガーを作成する必要がある。
@@ -74,7 +71,7 @@ https://i.imgur.com/ggyXgx0
 
 GAS は docs や sheet などのファイルに結びついたものと、ファイルに結びついていないスタンドアロンのものがある。
 
-スタンドアロンの GAS ではプロジェクトページからトリガーが作成できないので  `ScriptApp` を使ってトリガーを作成する必要がある。
+スタンドアロンの GAS ではプロジェクトページからトリガーが作成できないので `ScriptApp` を使ってトリガーを作成する必要がある。
 
 [Class ScriptApp &nbsp;|&nbsp; Apps Script &nbsp;|&nbsp; Google Developers](https://developers.google.com/apps-script/reference/script/script-app#newtriggerfunctionname)
 
@@ -86,4 +83,3 @@ function addOnEditTrigger() {
 		.create();
 }
 ```
-

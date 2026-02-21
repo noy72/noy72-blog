@@ -1,8 +1,6 @@
 ---
-title: idxmin() で TypeError; argmin() got an unexpected keyword argument 'skipna' が起こる 
+title: idxmin() で TypeError; argmin() got an unexpected keyword argument 'skipna' が起こる
 tags: ["Python"]
-
-
 ---
 
 idxmin() にハマった．

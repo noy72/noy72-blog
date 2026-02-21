@@ -2,7 +2,6 @@
 title: "[GCP] Cloud Functions のエラー通知方法"
 tags: ["Google Cloud"]
 thumbnail: "https://i.imgur.com/5JWthBsm.webp"
-
 ---
 
 Python でのログの出し方と Cloud Monitoring を使った監視の方法を書いた。
@@ -16,7 +15,7 @@ Python でのログの出し方と Cloud Monitoring を使った監視の方法�
 ただし、コールド スタートの原因になるので、捕捉されない例外を投げるのは推奨されない。
 
 > 例外処理を使用する言語では、捕捉されない例外をスローしないでください。これは、以降の呼び出しでコールド スタートが強制されるためです。
-> 
+>
 > https://cloud.google.com/functions/docs/bestpractices/tips?hl=ja#error_reporting
 
 捕捉されない例外を出さないようにするためには、呼び出しのトップレベルで例外をキャッチして、エラーメッセージを出力するなどが考えられる。
@@ -72,8 +71,6 @@ logger.error(json.dump({
 
 [ログでエラーをフォーマットする  |  Error Reporting  |  Google Cloud](https://cloud.google.com/error-reporting/docs/formatting-error-messages?hl=ja)
 
-
-
 #### スニペット
 
 ログを出すのがやや面倒なので、その辺りの設定をやってくれる小さなライブラリ（といえるほどのものではない）を使っている
@@ -84,10 +81,10 @@ https://github.com/noy72/google-cloud-structured-logger|embed
 
 ```json
 {
-    "message": "error",
-    "timestamp": "2022-08-18T12:55:52.064381",
-    "severity": "ERROR",
-    "@type": "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent"
+  "message": "error",
+  "timestamp": "2022-08-18T12:55:52.064381",
+  "severity": "ERROR",
+  "@type": "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent"
 }
 ```
 

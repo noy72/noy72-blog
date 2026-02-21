@@ -2,7 +2,6 @@
 title: lisp公案をやった
 tags: ["Lisp"]
 thumbnail: "https://i.imgur.com/dRmgM8Om.webp"
-
 ---
 
 Googleが公開しているlisp-koansを解いた．
@@ -19,8 +18,6 @@ lisp-koansは，例えるなら計算ドリル．テストに成功するよう�
 
 前半部分は馴染みのある内容で分かりやすいけど，後半のマクロやCLOS（Common Lisp Object System）は，問題中の説明だけではわからないと思う（実際，自分はあまりわかっていない）．
 
-
-
 ## 参考サイト
 
 lispを書くのに参考になる（なりそうな）サイト．
@@ -32,8 +29,6 @@ lispを書くのに参考になる（なりそうな）サイト．
 - [cl-cookbook](https://lispcookbook.github.io/cl-cookbook/)  
   上記と同じ．さらに，このサイトの「Other CL Resources」には書籍やサイトのリンクが複数ある．
 
-
-
 ## vlimeメモ
 
 - `\cc`: サーバに接続．
@@ -42,6 +37,3 @@ lispを書くのに参考になる（なりそうな）サイト．
 - `<CTRL>-x <CTRL>-o`: omni-completion
 - `\dda`: リファレンスを表示．
 - `\of`: コンパイル
-
-
-

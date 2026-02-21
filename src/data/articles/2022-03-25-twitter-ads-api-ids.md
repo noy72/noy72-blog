@@ -6,18 +6,14 @@ thumbnail: "https://i.imgur.com/INJhj6Hm.webp"
 
 広告の ID が管理画面と API で違うと思ったら基数が違うだけだった。
 
-
-
 https://i.imgur.com/INJhj6H|0.7
-
-
 
 ## 概要
 
 管理画面ではキャンペーンや広告の ID が整数で、API では英数文字である。これは単に 10 進数 ⇄ 36 進数の変換をしているだけである。
 
 > Campaign identifiers (`:campaign_id`) are the base-36 representation of the base-10 value we present in the Twitter Ads UI.  
->[Overview | Docs | Twitter Developer Platform](https://developer.twitter.com/en/docs/twitter-ads-api/campaign-management/overview)
+> [Overview | Docs | Twitter Developer Platform](https://developer.twitter.com/en/docs/twitter-ads-api/campaign-management/overview)
 
 > These entities have their own IDs, which are alpha-numeric and are represented as base-36-encoded values. For example, promoting the published Tweet above—that is, associating it a line item 6c62d—returns the following API response.  
 > [Tweets | Docs | Twitter Developer Platform](https://developer.twitter.com/en/docs/twitter-ads-api/creatives/guides/tweets)

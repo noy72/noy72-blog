@@ -2,14 +2,13 @@
 title: 『オブジェクト指向入門 第2版』の9章を読んだ
 tags: ["技術書"]
 thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
-
 ---
 
 第9章　メモリ管理
 
 オブジェクト管理の形式には，
 
--  静的
+- 静的
 - スタックベース
 - 自由
 
@@ -65,7 +64,5 @@ thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
 - 世代別回収  
   オブジェクトの生存期間によって，領域の検査の頻度を変える．
 - アプリケーションとコレクタを並列に実行する
-
-
 
 <!-- https://i.imgur.com/PQG6kP3 -->

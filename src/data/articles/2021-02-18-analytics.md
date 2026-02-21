@@ -1,7 +1,6 @@
 ---
 title: Google Analyticsを入れた
 tags: ["サイト更新"]
-
 ---
 
 アクセス解析できるようにした．
@@ -13,4 +12,3 @@ GatsbyにGoogle Analyticsを追加するのは簡単で，Google Analyticsのア
 プライバシーに関する規約を読んでいるときに，ふと「GAFAMが提供するものを使わないで生活する」という記事を思い出した．GAFAMに情報を与えないで生活するってできるのだろうか？
 
 https://gizmodo.com/c/goodbye-big-five|embed
-

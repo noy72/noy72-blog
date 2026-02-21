@@ -6,11 +6,7 @@ thumbnail: "https://i.imgur.com/9EoDhLem.webp"
 
 結局原因はよくわかっていない。
 
-
-
 https://i.imgur.com/9EoDhLe|0.7
-
-
 
 ## 状態
 
@@ -30,19 +26,13 @@ You may need an additional plugin to handle "data:" URIs.
 
 `...` の部分はエンコードされたフォント（長い文字列）が出力されている。「"data:" を扱うためにプラグインを追加する必要があるかも」とエラーメッセージに出ているが、Renderer プロセスで base64 でエンコードした画像を表示しているので "data:" は扱えてはいる。
 
-
-
 ## Issue
 
 探していたら以下のイシューを見つけた。エラー内容も同じ。コメントの内容は「バグ修正されたバージョン使えばいいよ」とのこと。
 
 [Module build failed: UnhandledSchemeError: Reading from "data:application/x-font-ttf;charset=utf-8 · Issue #4227 · Semantic-Org/Semantic-UI-React](https://github.com/Semantic-Org/Semantic-UI-React/issues/4227#issuecomment-996152895)
 
-
-
 [fomantic/Fomantic-UI: Fomantic-UI is a community fork of Semantic-UI](https://github.com/fomantic/Fomantic-UI) の 2.9.0-beta.194 をインストールして `import "fomantic-ui/dist/semantic.min.css";` と書いたらエラーが起きずに動いた。2.8.8 だとエラーが起きた。同じだからそりゃそうか。
-
-
 
 ## 感想
 
