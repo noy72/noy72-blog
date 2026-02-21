@@ -7,9 +7,16 @@ const articles = await getCollection("articles", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const tags = [
-  ...new Set(articles.flatMap((a) => a.data.tags || [])),
-].toSorted();
+const tags = Object.entries(
+  articles
+    .flatMap((a) => a.data.tags || [])
+    .reduce<
+      Record<string, number>
+    >((acc, tag) => ({ ...acc, [tag]: (acc[tag] || 0) + 1 }), {}),
+).toSorted(
+  ([tagA, countA], [tagB, countB]) =>
+    countB - countA || tagA.localeCompare(tagB),
+);
 ---
 
 <Layout title="タグ一覧" description="すべてのタグ一覧" noIndex={true}>
@@ -23,22 +30,17 @@ const tags = [
     <h1 class="text-3xl font-semibold mb-8 text-gray-900">タグ一覧</h1>
     <ul class="flex flex-wrap gap-2 list-none p-0">
       {
-        tags.map((tag) => {
-          const count = articles.filter((a) =>
-            (a.data.tags || []).includes(tag),
-          ).length;
-          return (
-            <li>
-              <a
-                href={`/tags/${tag}`}
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-600 rounded-full text-sm transition-colors"
-              >
-                <span class="font-normal">#{tag}</span>
-                <span class="text-xs text-gray-500">({count})</span>
-              </a>
-            </li>
-          );
-        })
+        tags.map(([tag, count]) => (
+          <li>
+            <a
+              href={`/tags/${tag}`}
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-600 rounded-full text-sm transition-colors"
+            >
+              <span class="font-normal">#{tag}</span>
+              <span class="text-xs text-gray-500">({count})</span>
+            </a>
+          </li>
+        ))
       }
     </ul>
   </main>
