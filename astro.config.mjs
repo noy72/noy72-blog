@@ -6,13 +6,14 @@ import tailwindcss from "@tailwindcss/vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkImgurImage from "./src/plugins/remark-imgur-image.ts";
+import remarkBlogCard from "./src/plugins/remark-blog-card.ts";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkMath, remarkImgurImage],
+    remarkPlugins: [remarkMath, remarkImgurImage, remarkBlogCard],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: "github-dark",
@@ -25,6 +26,7 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' https://i.imgur.com https://placehold.co",
         "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
+        "frame-src 'self' https://hatenablog-parts.com",
         "object-src 'none'",
         "base-uri 'self'",
         "upgrade-insecure-requests",
