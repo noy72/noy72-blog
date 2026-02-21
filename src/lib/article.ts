@@ -57,6 +57,19 @@ function extractDateFromId(id: string): Date | null {
   return date;
 }
 
+export function extractFirstSentenceFromMarkdown(content: string): string {
+  const match = content.trim().match(/^.+?[.。!?！？]/);
+  return match ? match[0] : content.trim().split("\n")[0];
+}
+
+export function extractDescriptionFromMarkdown(content: string): string {
+  const maxLength = 150;
+  const trimmed = content.trim();
+  return trimmed.length <= maxLength
+    ? trimmed
+    : trimmed.slice(0, maxLength) + "...";
+}
+
 export type RelatedArticle = {
   id: string;
   title: string;

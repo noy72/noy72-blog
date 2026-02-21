@@ -7,21 +7,11 @@ import RelatedArticles from "../../components/RelatedArticles.astro";
 import ArticleNav from "../../components/ArticleNav.astro";
 import {
   addPublishDateToArticles,
+  extractDescriptionFromMarkdown,
   findRelatedArticles,
 } from "../../lib/article.ts";
 import { SITE_CONFIG } from "../../config/site";
 import { buildAbsoluteImageUrl, type BlogPostingSchema } from "../../lib/seo";
-
-function extractDescriptionFromMarkdown(content: string): string {
-  const maxLength = 150;
-  const trimmed = content.trim();
-
-  if (trimmed.length <= maxLength) {
-    return trimmed;
-  }
-
-  return trimmed.slice(0, maxLength) + "...";
-}
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => {

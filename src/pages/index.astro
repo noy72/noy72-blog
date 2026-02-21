@@ -3,7 +3,10 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import ArticleCard from "../components/ArticleCard.astro";
-import { addPublishDateToArticles } from "../lib/article.ts";
+import {
+  addPublishDateToArticles,
+  extractFirstSentenceFromMarkdown,
+} from "../lib/article.ts";
 import { SITE_CONFIG } from "../config/site";
 
 const articles = await getCollection("articles", ({ data }) => {
@@ -25,7 +28,12 @@ const sortedArticles = addPublishDateToArticles(articles).toSorted(
             id={article.id}
             title={article.data.title}
             publishDate={article.publishDate}
-            description={article.data.description}
+            description={
+              article.data.description ??
+              (article.body
+                ? extractFirstSentenceFromMarkdown(article.body)
+                : undefined)
+            }
             tags={article.data.tags}
             thumbnail={article.data.thumbnail}
           />
