@@ -1,6 +1,7 @@
 ---
 title: 『オブジェクト指向入門 第2版』の22章を読んだ
 tags: ["技術書"]
+thumbnail: "https://i.imgur.com/xIwe7RZm.webp"
 
 ---
 

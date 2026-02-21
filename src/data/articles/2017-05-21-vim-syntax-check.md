@@ -1,6 +1,7 @@
 ---
 title: vimに構文チェックのプラグインを入れた（C++）
 tags: ["開発環境", "Vim"]
+thumbnail: "https://i.imgur.com/Oy8jdCtm.webp"
 ---
 
 syntasticとALEを導入しました。

@@ -1,6 +1,7 @@
 ---
 title: Ajax通信をする小さなアプリの作成
 tags: ["JavaScript", "Node.js"]
+thumbnail: "https://i.imgur.com/qReYf1Cm.webp"
 ---
 
 JavaScript Primer の第二部をやったメモ．

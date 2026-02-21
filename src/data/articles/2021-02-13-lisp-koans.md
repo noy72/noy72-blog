@@ -1,6 +1,7 @@
 ---
 title: lisp公案をやった
 tags: ["Lisp"]
+thumbnail: "https://i.imgur.com/dRmgM8Om.webp"
 
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: はてなサマーインターン2019に参加しました
 tags: ["参加記"]
+thumbnail: "https://i.imgur.com/5wrYjuQm.webp"
 ---
 
 インターンでMackerelのウィジェットを開発しました．

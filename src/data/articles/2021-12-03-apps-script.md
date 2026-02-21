@@ -1,6 +1,7 @@
 ---
 title: イベント発生時に UrlFetchApp.fetch を呼ぶ
 tags: ["Google Apps Script"]
+thumbnail: "https://i.imgur.com/ggyXgx0m.webp"
 ---
 
 UrlFetchApp.fetch を呼んだらエラーが起きたので調べた。

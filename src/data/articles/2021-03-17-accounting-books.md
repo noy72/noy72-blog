@@ -1,6 +1,7 @@
 ---
 title: 会計の基礎を学ぶために読んだ5冊
 tags: ["会計", "本"]
+thumbnail: "https://i.imgur.com/JhvSv7zm.webp"
 
 ---
 
