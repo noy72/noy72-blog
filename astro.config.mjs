@@ -5,13 +5,14 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import remarkImgurImage from "./src/plugins/remark-imgur-image.ts";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, remarkImgurImage],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: "github-dark",
@@ -29,7 +30,11 @@ export default defineConfig({
         "upgrade-insecure-requests",
       ],
       styleDirective: {
-        resources: ["'self'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+        resources: [
+          "'self'",
+          "https://fonts.googleapis.com",
+          "https://cdn.jsdelivr.net",
+        ],
       },
     },
   },
