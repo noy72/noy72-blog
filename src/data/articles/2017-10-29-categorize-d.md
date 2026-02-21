@@ -1,7 +1,6 @@
 ---
 title: AtCoder Beginner Contest D問題ジャンル分け
 tags: ["競プロ", "AtCoder"]
-
 ---
 
 ABCのD問題をジャンル分けした．

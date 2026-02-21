@@ -1,7 +1,6 @@
 ---
 title: dein.vimとdeopleteをmacにインストールする。
 tags: ["開発環境", "Vim"]
-
 ---
 
 vimのプラグインをインストールした
@@ -9,7 +8,7 @@ vimのプラグインをインストールした
 ## 環境
 
 - mac
-- vim 8.0.1300 
+- vim 8.0.1300
 
 暗黒のVimmer（見習い）
 
@@ -27,7 +26,7 @@ githubのQuick start、 [dein.vimのインストール自体にハマってし�
 ```
 １、Run below script.
 
-$ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh 
+$ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
     > installer.sh
 $ sh ./installer.sh {specify the installation directory}
 ```
@@ -87,8 +86,8 @@ g:deoplete#sources#clang#clang_header
 ```
 
 この二つの設定は必須です。
-libclang\_pathにはlibclang.dylibへのpath、clang\_headerはclangディレクトリへのpathです。
-libclang\_pathと同じディレクトリにclangのディレクトリがあれば、それへのpathをclang\_headerにします。
+libclang_pathにはlibclang.dylibへのpath、clang_headerはclangディレクトリへのpathです。
+libclang_pathと同じディレクトリにclangのディレクトリがあれば、それへのpathをclang_headerにします。
 
 denite.vimはうまく動かないので諦めました。
 
