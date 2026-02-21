@@ -1,7 +1,6 @@
 ---
 title: ネットワークインターフェイスの名前
 tags: ["ネットワーク"]
-
 ---
 
 MacBook Air でifconfigして表示されたネットワークインターフェイス一覧。
@@ -27,7 +26,7 @@ Air Dropの機能用
 <b>awdl0 </b>  
 Handoffの機能用
 
-<b>bridge0</b>   
+<b>bridge0</b>  
 仮想インターフェイスを外部ネットワークに接続する
 
 ## 参考URL
