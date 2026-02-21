@@ -1,6 +1,7 @@
 ---
 title: 『Clean Coder プロフェッショナルプログラマへの道』を読んだ
 tags: ["技術書"]
+thumbnail: "https://i.imgur.com/6cesuohm.webp"
 ---
 
 Clean Architectureに続き，Coderを読んだ．

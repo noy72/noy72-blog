@@ -1,6 +1,7 @@
 ---
 title: 会計の基礎を学んだ
 tags: ["会計", "本"]
+thumbnail: "https://i.imgur.com/wjUex3um.webp"
 
 ---
 

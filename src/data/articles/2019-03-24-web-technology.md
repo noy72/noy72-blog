@@ -1,6 +1,7 @@
 ---
 title: 『Webを支える技術 -HTTP、URI、HTML、そしてREST』を読んだ
 tags: ["技術書", "Webアプリ"]
+thumbnail: "https://i.imgur.com/7jnmgI4m.webp"
 ---
 
 Webに関する技術を学んだ．

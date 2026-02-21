@@ -1,6 +1,7 @@
 ---
 title: サムネイルを表示するようにした
 tags: ["サイト更新"]
+thumbnail: "https://i.imgur.com/UMAMTmxm.webp"
 
 ---
 

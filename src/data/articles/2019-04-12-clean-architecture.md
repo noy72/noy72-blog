@@ -1,6 +1,7 @@
 ---
 title: 『Clean Architecture 達人に学ぶソフトウェアの構造と設計』を読んだ
 tags: ["技術書", "アーキテクチャ"]
+thumbnail: "https://i.imgur.com/89BrI5xm.webp"
 ---
 
 Architectureについて学んだ．

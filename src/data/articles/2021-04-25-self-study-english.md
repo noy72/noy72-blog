@@ -1,6 +1,7 @@
 ---
 title: 『英語独習法』を読んだ
 tags: ["本", "英語"]
+thumbnail: "https://i.imgur.com/7leMEVjm.webp"
 
 
 

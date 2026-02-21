@@ -1,6 +1,7 @@
 ---
 title: ブログカードを使えるようにした
 tags: ["サイト更新"]
+thumbnail: "https://i.imgur.com/40Xhw1lm.webp"
 
 ---
 

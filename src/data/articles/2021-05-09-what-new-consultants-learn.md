@@ -1,6 +1,7 @@
 ---
 title: 『コンサル一年目が学ぶこと』を読んだ
 tags: ["本"]
+thumbnail: "https://i.imgur.com/i672OrXm.webp"
 
 
 ---

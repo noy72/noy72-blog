@@ -1,6 +1,7 @@
 ---
 title: 『オブジェクト指向入門 第2版』の8章を読んだ
 tags: ["技術書"]
+thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
 
 ---
 

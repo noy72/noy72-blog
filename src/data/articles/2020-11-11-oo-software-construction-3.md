@@ -1,6 +1,7 @@
 ---
 title: 『オブジェクト指向入門 第2版』の3章を読んだ
 tags: ["技術書", "オブジェクト指向"]
+thumbnail: "https://i.imgur.com/PQG6kP3m.webp"
 ---
 
 第3章　モジュール性

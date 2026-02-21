@@ -1,6 +1,7 @@
 ---
 title: ヨーヨーを3つ買った（クラウン，ループ720）
 tags: ["趣味"]
+thumbnail: "https://i.imgur.com/n7pdzWSm.webp"
 
 ---
 
