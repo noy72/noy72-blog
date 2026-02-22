@@ -25,7 +25,7 @@ body {
   --tw-prose-code: theme("colors.gray.900");
   --tw-prose-pre-bg: theme("colors.gray.50");
   --tw-prose-pre-code: theme("colors.gray.800");
-  --tw-prose-quotes: theme("colors.gray.900");
+  --tw-prose-quotes: theme("colors.gray.500");
   --tw-prose-quote-borders: theme("colors.gray.300");
 }
 
@@ -38,6 +38,10 @@ body {
   font-family: "M PLUS 2", sans-serif;
   font-weight: 700;
   letter-spacing: 0.025em;
+}
+
+.prose blockquote {
+  font-style: normal;
 }
 
 .prose a {
