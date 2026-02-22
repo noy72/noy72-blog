@@ -5,7 +5,7 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import {
   addPublishDateToArticles,
-  extractFirstSentenceFromMarkdown,
+  extractFirstParagraphFromMarkdown,
 } from "../../lib/article.ts";
 
 export async function getStaticPaths() {
@@ -60,7 +60,7 @@ const { articles } = Astro.props;
             description={
               article.data.description ??
               (article.body
-                ? extractFirstSentenceFromMarkdown(article.body)
+                ? extractFirstParagraphFromMarkdown(article.body)
                 : undefined)
             }
             tags={article.data.tags}
