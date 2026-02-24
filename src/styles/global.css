@@ -42,6 +42,7 @@ body {
 
 .prose blockquote {
   font-style: normal;
+  font-weight: 400;
 }
 
 .prose a {
