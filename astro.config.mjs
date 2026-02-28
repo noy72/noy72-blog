@@ -7,13 +7,19 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkImgurImage from "./src/plugins/remark-imgur-image.ts";
 import remarkBlogCard from "./src/plugins/remark-blog-card.ts";
+import remarkCodeTitle from "./src/plugins/remark-code-title.ts";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkMath, remarkImgurImage, remarkBlogCard],
+    remarkPlugins: [
+      remarkMath,
+      remarkCodeTitle,
+      remarkImgurImage,
+      remarkBlogCard,
+    ],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: "github-dark",
