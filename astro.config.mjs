@@ -14,7 +14,12 @@ export default defineConfig({
   site: "https://noy72.com",
   integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkMath, remarkCodeTitle, remarkImgurImage, remarkBlogCard],
+    remarkPlugins: [
+      remarkMath,
+      remarkCodeTitle,
+      remarkImgurImage,
+      remarkBlogCard,
+    ],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: "github-dark",
