@@ -9,14 +9,8 @@ function makeArticle(id: string): CollectionEntry<"articles"> {
   return {
     id,
     data: { title: "test", draft: false },
-    body: "",
     collection: "articles",
-    render: async () => ({
-      Content: () => null,
-      headings: [],
-      remarkPluginFrontmatter: {},
-    }),
-  } as unknown as CollectionEntry<"articles">;
+  };
 }
 
 describe("addPublishDateToArticles", () => {
