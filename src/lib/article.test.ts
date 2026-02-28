@@ -1,5 +1,61 @@
 import { describe, expect, it } from "vitest";
-import { extractFirstParagraphFromMarkdown } from "./article.ts";
+import {
+  addPublishDateToArticles,
+  extractFirstParagraphFromMarkdown,
+} from "./article.ts";
+import type { CollectionEntry } from "astro:content";
+
+function makeArticle(id: string): CollectionEntry<"articles"> {
+  return {
+    id,
+    data: { title: "test", draft: false },
+    body: "",
+    collection: "articles",
+    render: async () => ({
+      Content: () => null,
+      headings: [],
+      remarkPluginFrontmatter: {},
+    }),
+  } as unknown as CollectionEntry<"articles">;
+}
+
+describe("addPublishDateToArticles", () => {
+  it("YYYY-MM-DD-slug 形式のファイル名から日付を抽出する", () => {
+    const articles = [makeArticle("2025-01-15-my-post")];
+    const result = addPublishDateToArticles(articles);
+    expect(result).toHaveLength(1);
+    expect(result[0].publishDate).toEqual(new Date(2025, 0, 15));
+  });
+
+  it("YYYY-MM-DD 形式（日付のみ）のファイル名から日付を抽出する", () => {
+    const articles = [makeArticle("2021-09-10")];
+    const result = addPublishDateToArticles(articles);
+    expect(result).toHaveLength(1);
+    expect(result[0].publishDate).toEqual(new Date(2021, 8, 10));
+  });
+
+  it("不正な形式のファイル名は除外される", () => {
+    const articles = [makeArticle("invalid-filename")];
+    const result = addPublishDateToArticles(articles);
+    expect(result).toHaveLength(0);
+  });
+
+  it("不正な日付は除外される", () => {
+    const articles = [makeArticle("2025-13-01-post")];
+    const result = addPublishDateToArticles(articles);
+    expect(result).toHaveLength(0);
+  });
+
+  it("複数の記事を処理できる", () => {
+    const articles = [
+      makeArticle("2025-01-15-post-a"),
+      makeArticle("2021-09-10"),
+      makeArticle("invalid"),
+    ];
+    const result = addPublishDateToArticles(articles);
+    expect(result).toHaveLength(2);
+  });
+});
 
 describe("extractFirstParagraphFromMarkdown", () => {
   it("単純な段落を返す", () => {
