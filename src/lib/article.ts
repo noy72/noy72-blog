@@ -30,10 +30,11 @@ export function addPublishDateToArticles(
  *
  * @param id - Astro Content Collectionsの記事ID（ファイル名から拡張子を除いたもの）
  *              例: "2025-12-07-first-post" (ファイル名: 2025-12-07-first-post.md)
+ *                  "2025-12-07" (ファイル名: 2025-12-07.md)
  * @returns 抽出した日付、または形式が不正な場合は null
  */
 function extractDateFromId(id: string): Date | null {
-  const match = id.match(/^(\d{4})-(\d{2})-(\d{2})-/);
+  const match = id.match(/^(\d{4})-(\d{2})-(\d{2})(?:-|$)/);
   if (!match) {
     console.warn(`記事ファイル名の形式が不正です: "${id}"\n`);
     return null;
