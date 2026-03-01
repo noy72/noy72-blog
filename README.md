@@ -2,6 +2,12 @@
 
 Astro + TypeScript + Tailwind CSS を使用した個人ブログサイト
 
+## 歴史
+
+- [自前のブログを作った | noy72.com](https://noy72.com/articles/2021-02-01-vercel)
+- [サイトをまるっと置き換えた | noy72.com](https://noy72.com/articles/2024-12-29-replace)
+- [ブログをGatsbyからAstroに移行した | noy72.com](https://noy72.com/articles/2026-03-01-blog-migration-to-astro)
+
 ## 技術スタック
 
 - Astro 5.x
