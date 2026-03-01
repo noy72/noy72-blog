@@ -1,0 +1,41 @@
+{
+  "rules": {
+    "preset-ja-technical-writing": {
+      "ja-no-mixed-period": false,
+      "ja-no-successive-word": {
+        "allow": ["…"]
+      }
+    },
+    "preset-japanese": true,
+    "preset-jtf-style": {
+      "1.2.1.句点(。)と読点(、)": false,
+      "1.2.2.ピリオド(.)とカンマ(,)": false,
+      "3.1.1.全角文字と半角文字の間": false,
+      "4.1.3.ピリオド(.)、カンマ(,)": false
+    },
+    "preset-ja-spacing": {
+      "ja-space-between-half-and-full-width": {
+        "space": "always",
+        "lintStyledNode": true
+      },
+      "ja-space-around-code": {
+        "before": true,
+        "after": true
+      },
+      "ja-space-around-link": {
+        "before": true,
+        "after": true
+      }
+    },
+    "no-mixed-zenkaku-and-hankaku-alphabet": true,
+    "preset-ja-engineering-paper": {
+      "unify-kuten-and-touten": false
+    }
+  },
+  "filters": {
+    "comments": true,
+    "allowlist": {
+      "allow": []
+    }
+  }
+}
